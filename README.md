@@ -1,16 +1,33 @@
 # README
 
-#開発言語
-ruby 3.0.1
+#開発言語  
+ruby 3.0.1  
 Rails 6.0.6.1
 
-#実行手順
+1. リポジトリをクローンします：
+    ```
+    git clone https://github.com/fgolfc/primary_school_exam_board.git
+    ```
 
-$ https://github.com/fgolfc/primary_school_exam_board.git
-$ cd primary_school_exam_board
-$ bundle install
-$ rails db:create && rails db:migrate
-$ rails s
+2. ディレクトリに移動します：
+    ```
+    cd primary_school_exam_board
+    ```
+
+3. 必要な依存関係をインストールします：
+    ```
+    bundle install
+    ```
+
+4. データベースを作成し、マイグレーションを行います：
+    ```
+    rails db:create && rails db:migrate
+    ```
+
+5. サーバーを起動します：
+    ```
+    rails s
+    ```
 
 #カタログ設計
 https://docs.google.com/spreadsheets/d/1elLcvYP3mLpskafk_-l0IawVuYmQ9JTA50YzYSoEJ1Y/edit?usp=sharing
