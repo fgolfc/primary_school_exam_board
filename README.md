@@ -39,8 +39,8 @@ https://docs.google.com/spreadsheets/d/1elLcvYP3mLpskafk_-l0IawVuYmQ9JTA50YzYSoE
 https://cacoo.com/diagrams/284NbmT9P7E1mYpB/110DF
 
 #ER図
-<img width="859" alt="スクリーンショット 2023-07-07 11 24 23" src="https://github.com/fgolfc/primary_school_exam_board/assets/104212347/20dbc8d0-d5b3-4855-b565-3110e4784fed">
+<img width="842" alt="スクリーンショット 2023-07-08 10 06 17" src="https://github.com/fgolfc/primary_school_exam_board/assets/104212347/11bc1656-f66c-43a4-8b42-b140b6fbf526">
 
 #画面遷移図
-<img width="771" alt="スクリーンショット 2023-07-06 9 46 59" src="https://github.com/fgolfc/primary_school_exam_board/assets/104212347/010185d4-f6c7-42c5-80e4-153d9c7a9048">
+<img width="768" alt="スクリーンショット 2023-07-08 10 43 00" src="https://github.com/fgolfc/primary_school_exam_board/assets/104212347/bae47a4b-7bd8-4ff0-88aa-035aa0a776ab">
 
