@@ -1,0 +1,66 @@
+<div class="card mx-auto w-50 mb-4">
+  <div class="card-body">
+    <h5 class="mb-4 text-center">ユーザー情報編集</h5>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+      
+      <div class="row mb-3">
+        <div class="col">
+          <%= f.label :nickname, class: 'form-label' %>
+          <%= f.text_field :nickname, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <%= f.label :email, class: 'form-label' %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+        </div>
+      </div>
+
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div><%= t("messages.waiting_confirmation", email: resource.unconfirmed_email) %></div>
+      <% end %>
+
+      <div class="row mb-3">
+        <div class="col">
+          <%= f.label :living_area, class: 'form-label' %><br />
+          <label class="form-label" style="font-size: 0.8em;"><%= raw t('activerecord.attributes.user.living_area_comment') %></label>
+          <%= f.select :prefecture, User.prefectures.keys.map { |k| [I18n.t("activerecord.attributes.user.prefectures.#{k}"), k] }, { prompt: '居住エリアを選んでください' }, { class: "form-control" } %>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <%= f.label :password, class: 'form-label' %><br /><span style="font-size: 0.8em;"><%= raw t('messages.leave_blank_if_no_change') %></span>
+          <%= f.password_field :password, autocomplete: "new-password", class: 'form-control' %></br>
+          <% if @minimum_password_length %>
+            <span style="font-size: 0.8em;"><%= t('messages.minimum_password_length', length: @minimum_password_length) %></span>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <%= f.label :password_confirmation, class: 'form-label' %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <%= f.label :current_password, class: 'form-label' %><br /><span style="font-size: 0.8em;"><%= raw t('messages.current_password_needed') %></span>
+          <%= f.password_field :current_password, autocomplete: "current-password", class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="actions mt-3 d-flex justify-content-center">
+        <%= f.submit t('buttons.update'), class: 'btn btn-custom', style: 'background-color: #ffcccc;' %>
+      </div>
+
+      <div class="d-flex justify-content-center mt-3">
+        <%= link_to t('buttons.back'), user_path(@user), class: 'btn btn-secondary' %>
+      </div>
+    <% end %>
+  </div>
+</div>

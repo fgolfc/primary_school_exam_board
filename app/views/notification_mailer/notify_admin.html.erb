@@ -1,0 +1,8 @@
+<h1>新しい投稿NG通知</h1>
+
+<p>
+  訪問者: <%= @notification.visitor.username %><br>
+  訪問先: <%= @notification.visited.username %><br>
+  ポスト: <%= @notification.post ? @notification.post.title : 'N/A' %><br>
+  アクション: <%= @notification.action %>
+</p>

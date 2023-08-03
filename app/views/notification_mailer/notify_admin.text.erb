@@ -1,0 +1,6 @@
+投稿NG通知
+
+訪問者: <%= @notification.visitor.username %>
+訪問先: <%= @notification.visited.username %>
+ポスト: <%= @notification.post ? @notification.post.title : 'N/A' %>
+アクション: <%= @notification.action %>

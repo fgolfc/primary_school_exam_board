@@ -13,3 +13,88 @@
  *= require_tree .
  *= require_self
  */
+
+ .no-hover:hover {
+  text-decoration: none !important;
+  color: inherit !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.custom-btn {
+  background-color: pink; /* 背景色をピンクに設定 */
+  color: white; /* 文字色を白に設定 */
+  border-radius: 7px; /* 角を丸くする */
+  padding: 20px 40px; /* 上下のパディングを10px、左右のパディングを20pxに設定 */
+  transition: background-color 0.3s ease; /* 背景色の変化を滑らかにする */
+  margin-left: 40px;
+  width: 150px; /* ボタンの横幅を70pxに設定 */
+  text-align: center; /* テキストを水平方向に中央寄せ */
+  display: flex; /* フレックスコンテナとして指定 */
+  justify-content: center; /* テキストを水平方向に中央寄せ（flexを使用した場合） */
+  align-items: center; /* テキストを垂直方向に中央寄せ */
+}
+
+.custom-btn:hover {
+  background-color: rgb(254, 157, 170); /* マウスオーバー時の背景色を濃いピンクに設定 */
+  color: white; /* マウスオーバー時の文字色を白に設定 */
+}
+
+.btn.custom-like-btn {
+  background-color: #ffffff;
+  color: #ff9191;
+  border: 1px solid #ff9191;  /* 枠線を追加 */
+}
+
+.btn.custom-notify-btn {
+  background-color: #9a9a9a; /* Light red */
+  color: #ffffff; /* Black text */
+}
+
+.btn.custom-answer-btn {
+  background-color: #ffc0cb; /* Light pink */
+  color: #000; /* Black text */
+  width: 150px;
+}
+
+.custom-link:hover {
+  background-color: #d3d3d3; /* マウスオーバー時の背景色を薄いグレーに設定 */
+  color: white; /* マウスオーバー時の文字色を白に設定 */
+}
+
+.small-font {
+  font-size: 0.8rem !important;
+}
+
+.btn.custom-search-button {
+  background-color: #808080; /* 濃いグレー */
+  padding: 5px 10px; /* 縦の長さを調整 */
+  font-size: 0.9em; /* フォントサイズを小さく */
+  color: #fff; /* ボタンテキストの色を白に */
+  width: 100px;
+}
+
+.custom-sort-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 0.9em; /* フォントサイズを小さく */
+  color: #000; /* 文字色を黒に設定 */
+  background-color: rgba(185, 185, 185, 0.5);
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  width: 250px; 
+}
+
+.custom-sort-button:hover {
+  background-color: rgba(255, 200, 200, 0.7); 
+  color: red; 
+}
+
+.custom-card-width {
+  width: 60%; /* カードの幅を70%に設定 */
+}
+
+.custom-input-width {
+  width: 300px; /* 入力欄の幅を400pxに設定 */
+}

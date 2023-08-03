@@ -1,0 +1,2 @@
+document.getElementById("like-button-<%= @likeable.id %>").innerHTML = '<%= j(render "posts/like_button", likeable: @likeable) %>';
+document.getElementById("like-count-<%= @likeable.id %>").innerHTML = '<%= @likeable.likes_count %>';

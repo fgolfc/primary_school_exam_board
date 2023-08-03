@@ -1,0 +1,139 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <%= search_form_for @q, html: { style: "margin-bottom: 20px;" }, persist_state: true do |f| %>
+        <div class="form-group">
+          <%= f.label :title_or_body_cont, "質問検索:"%>
+          <%= f.search_field :title_or_body_cont, class: "form-control" %>
+          <div class="form-group text-right">
+            <%= f.submit "検索", class: "btn custom-search-button mt-2" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-md-4 d-flex flex-column align-items-end justify-content-center">
+      <div class="mb-3">
+        <%= link_to "回答数が多い順に並べ替える", posts_path(q: { s: 'responses_count desc' }), class: "custom-sort-button" %>
+      </div>
+      <div>
+        <%= link_to "投稿日順に並べ替える", posts_path(q: { s: 'created_at desc' }), class: "custom-sort-button" %>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <h5>質問投稿一覧</h5>
+
+      <% if @posts.empty? %>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card mb-2">
+              <div class="card-header">
+                質問ナンバーと投稿者名、投稿日時の情報はありません
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">No posts yet</h5>
+                <p class="card-text">There are no posts yet. Why not create one?</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <% @posts.each_with_index do |post, index| %>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card mb-3">
+                <div class="card-header small d-flex justify-content-between">
+                  <span>質問<%= sprintf("%04d", post.id) %></span>
+                  <span>投稿者名: <%= post.user.nickname if post&.user %></span>
+                  <span>投稿日時: <%= l(post.created_at, format: :long) if post.created_at.present? %></span>
+                </div>
+                <div class="card-body">
+                  <%= link_to post_path(post), class: "text-decoration-none text-dark" do %>
+                    <h6 class="card-title" style="border-bottom: 1px solid rgba(255, 145, 145, 0.5);"><%= post.title %></h6>
+                    <p class="card-text"><%= post.body %></p>
+                  <% end %>
+                </div>
+                <div class="card-footer text-muted small d-flex justify-content-between">
+                <div>
+                  <% if user_signed_in? %>
+                    <span id="like-button-<%= post.id %>">
+                      <% post_like = current_user.post_likes.find_by(post: post) %>
+                      <% if post_like.present? %>
+                        <%= link_to 'いいねをキャンセル', post_post_like_path(post_id: post.id, id: post_like.id), method: :delete, remote: true, class: 'btn custom-like-btn small-font' %>
+                      <% else %>
+                        <%= link_to '❤️ いいね', post_post_likes_path(post_id: post.id), method: :post, remote: true, class: 'btn custom-like-btn small-font' %>
+                      <% end %>
+                    </span>
+                    <span id="like-count-<%= post.id %>" class="ml-0"><%= post.post_likes.count %></span>
+                  <% end %>
+                </div>
+
+                <div>
+                  <button id="notify-btn" class="btn custom-notify-btn small-font">🔔管理者に通知</button>
+                
+                  <%= form_with(url: notifications_path, local: true, id: "notification-form") do |form| %>
+                    <div id="comment-section" style="display: none;">
+                      <%= form.text_area :comment, id: "comment" %>
+                      <%= form.submit "通知する", class: "btn custom-notify-btn small-font", id: "submit-btn" %>
+                    </div>
+                  <% end %>
+                
+                  <script>
+                    document.getElementById('notify-btn').addEventListener('click', function() {
+                      document.getElementById('comment-section').style.display = 'block';
+                    });
+                  </script>
+                </div>
+
+                  <% if current_user&.admin? %>
+                    <%= link_to '投稿を削除する', post_path(post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger small-font" %>
+                  <% end %>
+                
+                  <div class="d-flex">
+                    <%= link_to '回答する', new_post_response_path(post), class: "btn custom-answer-btn small-font align-items-center" %>
+                    <span class="ml-2 align-items-center">回答数: <%= post.responses.count %></span>
+                  </div>
+                </div>              
+              </div>
+            </div>
+          </div>
+          <%= paginate @posts %>
+        <% end %>
+      <% end %>
+
+      <br>
+    </div>
+    <div class="col-md-4">
+      <h5>主な私立小学校の<br>学校説明会情報のリンク</h5>
+      <ul style="font-size: 1em; list-style-type: none; padding-left: 0;">
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="http://www.yochisha.keio.ac.jp/orientation/" style="color: red;">慶應義塾幼稚舎</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://www.gakushuin.ac.jp/prim/admission/guidance.html" style="color: red;">学習院初等科</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://www.futabagakuen-jh.ed.jp/primary/admissions/session/" style="color: red;">雙葉小学校</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="http://www.yokohama-e.keio.ac.jp/admission/index.html" style="color: red;">慶應義塾横浜初等部</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://www.age.aoyama.ed.jp/admission/explanation.html" style="color: red;">青山学院初等部</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://www.shirayuri-e.ed.jp/examinee/index.html" style="color: red;">白百合学園小学校</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://www.gyosei-e.ed.jp/admissions/" style="color: red;">暁星小学校</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://elementary.seikei.ac.jp/entranceguide/tabid/104/Default.aspx" style="color: red;">成蹊小学校</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://www.tky-sacred-heart.ed.jp/04_nyugaku.html" style="color: red;">聖心女子学院 初等科</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://es.rikkyojogakuin.ac.jp/admission/guideline/" style="color: red;">立教女学院小学校</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://www.toyoeiwa.ac.jp/shogaku/exam/" style="color: red;">東洋英和女学院小学校</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://prim.rikkyo.ac.jp/entrance/openschool/guidance2023.html" style="color: red;">立教小学校</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://www.wasedajg.ed.jp/elementary/exam-e/explain-e/" style="color: red;">早稲田実業学校初等部</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://www.denenchofufutaba.ed.jp/elementary/admissions/setsumeikai.html" style="color: red;">田園調布雙葉学園小学校</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://es.rikkyojogakuin.ac.jp/admission/guideline/" style="color: red;">立教女学院小学校</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://www.senzoku.ed.jp/enter.htm" style="color: red;">洗足学園小学校</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://www.seijogakuen.ed.jp/shoto/admissions/guide/" style="color: red;">成城学園初等学校</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://tjk.jp/p/topics/category/admission/" style="color: red;">東京女学館小学校</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://www.jwu.ac.jp/elm/exam/exam.html" style="color: red;">日本女子大豊明小学校</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://www.kawamura.ac.jp/syougaku/exam/" style="color: red;">川村小学校</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://www.morimura.ed.jp/examination/index.html" style="color: red;">森村学園初等部</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://shotouka.koen-ejh.ed.jp/public_events/" style="color: red;">光塩女子学院初等科</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://es.swu.ac.jp/admission/" style="color: red;">昭和女子大学附属昭和小学校</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://syougakkou.shonan-shirayuri.ac.jp/" style="color: red;">湘南白百合学園小学校</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://www.meguroseibisho.ed.jp/" style="color: red;">目黒星美小学校</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://www.inter-edu.com/forum/read.php?4,6556874" style="color: red;">東京農業大学稲花小学校</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://shogakko.toho.ac.jp/exam/briefing" style="color: red;">桐朋小学校</a></li>
+        <li style="margin-bottom: 5px;"><a class="custom-link" href="https://netty.lekumo.biz/seika_news/exam/" style="color: red;">精華小学校</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

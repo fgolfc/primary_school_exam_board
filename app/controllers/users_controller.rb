@@ -1,0 +1,32 @@
+class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :destroy]
+  before_action :authorize_user, only: [:show]
+  before_action :authorize_admin, only: [:destroy]
+
+  def show
+  end
+
+  def destroy
+    @post.likes.destroy_all
+    @user.destroy
+    redirect_to users_path, notice: "User has been deleted."
+  end
+
+  private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def authorize_user
+    unless current_user == @user || current_user.admin?
+      redirect_to root_path, alert: "You do not have permission to access this page."
+    end
+  end
+
+  def authorize_admin
+    unless current_user&.admin?
+      redirect_to root_path, alert: "Only admins can perform that action."
+    end
+  end
+end

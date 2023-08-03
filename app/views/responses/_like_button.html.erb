@@ -1,0 +1,5 @@
+<% if post_like %>
+  <%= link_to '❤️ いいね', post_likes_path(post_id: post_like.id), method: :post, remote: true, class: 'btn custom-like-btn small-font' %>
+<% elsif response_like %>
+  <%= link_to '❤️ いいね', response_likes_path(response_id: response_like.id), method: :post, remote: true, class: 'btn custom-like-btn small-font' %>
+<% end %>

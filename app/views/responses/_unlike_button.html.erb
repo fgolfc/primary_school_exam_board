@@ -1,0 +1,5 @@
+<% if @post && post_like = current_user.post_likes.find_by(post: @post) %>
+  <%= link_to 'いいねをキャンセル', post_like_path(post_like), method: :delete, remote: true, class: 'btn custom-like-btn small-font' %>
+<% elsif @response && response_like = current_user.response_likes.find_by(response: @response) %>
+  <%= link_to 'いいねをキャンセル', response_like_path(response_like), method: :delete, remote: true, class: 'btn custom-like-btn small-font' %>
+<% end %>

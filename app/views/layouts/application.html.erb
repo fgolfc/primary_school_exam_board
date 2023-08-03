@@ -7,9 +7,52 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <%= javascript_pack_tag 'posts' %>
+    </head>
 
-  <body>
+    <body>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light" style="align-items: end;">
+        <a class="navbar-brand no-hover">
+          <%= image_tag("logo.png", class: "no-border", alt: "Logo", style: "height: 150px;") %>
+        </a>
+        <div class="collapse navbar-collapse mx-auto" id="navbarNav">
+          <ul class="navbar-nav">
+            <% if user_signed_in? %>
+              <li class="nav-item">
+                <a class="nav-link custom-btn" href="<%= posts_path %>">質問投稿一覧</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link custom-btn" href="<%= new_post_path %>">質問する</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link custom-btn" href="<%= user_path(current_user) %>">マイページ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link custom-btn" style="background-color: lightgray;" rel="nofollow" data-method="delete" href="<%= destroy_user_session_path %>">ログアウト</a>
+              </li>
+
+            <% else %>
+              <li class="nav-item">
+                <a class="nav-link custom-btn" href="<%= new_user_registration_path %>">新規登録</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link custom-btn" href="<%= new_user_session_path %>">ログイン</a>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </nav>
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    
     <%= yield %>
+
+    <footer class="footer mt-auto py-3 bg-light">
+      <div class="container">
+        <span class="text-muted">Elementary School Entrance Examination Institute.</span>
+      </div>
+    </footer>
   </body>
 </html>
