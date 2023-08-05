@@ -7,12 +7,17 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @post.likes.destroy_all
+    @user.posts.each { |post| post.likes.destroy_all }
     @user.destroy
     redirect_to users_path, notice: "User has been deleted."
   end
 
   private
+
+  def user_params
+    params.require(:user).permit(:email, :password, :nickname, :prefecture, :admin) 
+  end
+  
 
   def set_user
     @user = User.find(params[:id])

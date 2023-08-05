@@ -4,29 +4,28 @@ class PostLikesController < ApplicationController
 
   def create
     @post_like = current_user.post_likes.find_or_initialize_by(post: @post)
-
+  
     if @post_like.persisted?
-      # The like already exists. Do nothing, or show a message to the user.
+      render json: { status: 'already_exists', message: 'Like already exists.' }, status: :unprocessable_entity
     else
       if @post_like.save
-        # Like was successfully created. Update the page or show a success message.
+        respond_to do |format|
+          format.json { render json: { post_id: @post.id, like_count: @post.post_likes.count } }
+        end
       else
-        # An error occurred when trying to save the like. Show an error message.
+        render json: { status: 'error', message: 'Failed to save the like.' }, status: :unprocessable_entity
       end
     end
-  end
+  end  
 
   def destroy
     @post_like = current_user.post_likes.find_by(post: @post)
     if @post_like && @post_like.destroy
-      respond_to do |format|
-        format.html { redirect_back fallback_location: root_path }
-        format.js { @status = "destroy" }
-      end
+      render json: { post_id: @post.id, like_count: @post.post_likes.count }
     else
-      # Handle not found like here
+      render json: { status: 'error', message: 'Failed to delete the like or like not found.' }, status: :unprocessable_entity
     end
-  end
+  end    
 
   private
 
