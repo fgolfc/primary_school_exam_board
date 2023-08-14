@@ -39,7 +39,7 @@ https://docs.google.com/spreadsheets/d/1elLcvYP3mLpskafk_-l0IawVuYmQ9JTA50YzYSoE
 https://cacoo.com/diagrams/284NbmT9P7E1mYpB/110DF
 
 #ER図
-<img width="857" alt="スクリーンショット 2023-07-08 23 11 36" src="https://github.com/fgolfc/primary_school_exam_board/assets/104212347/9fafc469-0c87-4287-b97e-61bdfa0ea5dc">
+<img width="665" alt="スクリーンショット 2023-08-13 23 21 25" src="https://github.com/fgolfc/primary_school_exam_board/assets/104212347/3706f2ee-9a6c-4009-b358-f35adf6c7e46">
 
 #画面遷移図
 <img width="557" alt="スクリーンショット 2023-08-14 10 21 04" src="https://github.com/fgolfc/primary_school_exam_board/assets/104212347/b45a6bff-f7ef-4a6c-b087-775da70a0277">
