@@ -42,5 +42,5 @@ https://cacoo.com/diagrams/284NbmT9P7E1mYpB/110DF
 <img width="857" alt="スクリーンショット 2023-07-08 23 11 36" src="https://github.com/fgolfc/primary_school_exam_board/assets/104212347/9fafc469-0c87-4287-b97e-61bdfa0ea5dc">
 
 #画面遷移図
-<img width="768" alt="スクリーンショット 2023-07-08 10 43 00" src="https://github.com/fgolfc/primary_school_exam_board/assets/104212347/bae47a4b-7bd8-4ff0-88aa-035aa0a776ab">
+<img width="557" alt="スクリーンショット 2023-08-14 10 21 04" src="https://github.com/fgolfc/primary_school_exam_board/assets/104212347/b45a6bff-f7ef-4a6c-b087-775da70a0277">
 
