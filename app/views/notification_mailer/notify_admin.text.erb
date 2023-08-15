@@ -1,6 +1,6 @@
-投稿NG通知
+投稿通告連絡
 
-訪問者: <%= @notification.visitor.username %>
-訪問先: <%= @notification.visited.username %>
-ポスト: <%= @notification.post ? @notification.post.title : 'N/A' %>
+通告者: <%= @notification.user_id || 'N/A' %>
+投稿ID: <%= @notification.post_id || 'N/A' %>
 アクション: <%= @notification.action %>
+通知内容: <%= @notification.comment %>

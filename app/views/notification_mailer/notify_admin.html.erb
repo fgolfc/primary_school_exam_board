@@ -1,8 +1,8 @@
-<h1>新しい投稿NG通知</h1>
+<h1>新しい投稿通告連絡</h1>
 
 <p>
-  訪問者: <%= @notification.visitor.username %><br>
-  訪問先: <%= @notification.visited.username %><br>
-  ポスト: <%= @notification.post ? @notification.post.title : 'N/A' %><br>
-  アクション: <%= @notification.action %>
+  通告者: <%= @notification.user_id || 'N/A' %><br>
+  投稿ID: <%= @notification.post_id || 'N/A' %><br>
+  アクション: <%= @notification.action %><br>
+  通知内容: <%= @notification.comment %>
 </p>

@@ -2,12 +2,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
   
+  validates :nickname, presence: true
+  
   has_many :posts
   has_many :responses
   has_many :post_likes
   has_many :response_likes
-  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
-  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
   has_many :notifications, dependent: :destroy
   
   def prefecture_i18n

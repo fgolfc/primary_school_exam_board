@@ -1,0 +1,2 @@
+document.getElementById("like-count-<%= @post.id %>").innerHTML = "<%= @post.post_likes.count %>";
+document.getElementById("like-button-<%= @post.id %>").innerHTML = "Unlike";

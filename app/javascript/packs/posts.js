@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $('#notify-btn').click(function() {
+  $('#notify-admin-btn').click(function() {
     $('#comment-section').show();
   });
 

@@ -9,7 +9,7 @@ class Response < ApplicationRecord
   after_destroy :decrement_post_responses_count
 
   def likes_count
-    self.likes.count
+    self.response_likes_count
   end
 
   private

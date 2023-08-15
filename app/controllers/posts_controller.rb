@@ -5,8 +5,15 @@ class PostsController < ApplicationController
   # GET /posts or /posts.json
   def index
     @q = Post.ransack(params[:q])
-    @posts = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(5)
-  end  
+
+    base_query = @q.result.includes(:user, :post_likes, :responses)
+
+    if params[:order_by] == 'responses_count'
+      @posts = base_query.order(responses_count: :desc).page(params[:page]).per(5)
+    else
+      @posts = base_query.order(created_at: :desc).page(params[:page]).per(5)
+    end
+  end                
 
   # GET /posts/1 or /posts/1.json
   def show

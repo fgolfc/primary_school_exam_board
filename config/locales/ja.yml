@@ -73,6 +73,10 @@ ja:
       user: ユーザー
     errors:
       models:
+        user:
+          attributes:
+            nickname:
+              blank: "を入力してください"
         response:
           attributes:
             post:

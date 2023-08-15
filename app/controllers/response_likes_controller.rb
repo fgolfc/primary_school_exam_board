@@ -2,6 +2,10 @@ class ResponseLikesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_response
 
+  def index
+    @response_likes = ResponseLike.all
+  end
+
   def create
     @response_like = current_user.response_likes.find_or_initialize_by(response_id: @response.id)
   
@@ -25,7 +29,15 @@ class ResponseLikesController < ApplicationController
     else
       render json: { status: 'error', message: 'Failed to delete the like or like not found.' }, status: :unprocessable_entity
     end
-  end  
+  end
+  
+  def show
+    @response_like = ResponseLike.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.json
+    end
+  end
 
   private
 

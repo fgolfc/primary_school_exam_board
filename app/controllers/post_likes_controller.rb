@@ -2,6 +2,10 @@ class PostLikesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post
 
+  def index
+    @post_likes = PostLike.all
+  end
+
   def create
     @post_like = current_user.post_likes.find_or_initialize_by(post: @post)
   
@@ -25,7 +29,15 @@ class PostLikesController < ApplicationController
     else
       render json: { status: 'error', message: 'Failed to delete the like or like not found.' }, status: :unprocessable_entity
     end
-  end    
+  end
+  
+  def show
+    @post_like = PostLike.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.json
+    end
+  end
 
   private
 

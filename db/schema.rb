@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_02_041931) do
+ActiveRecord::Schema.define(version: 2023_08_13_072759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2023_08_02_041931) do
     t.boolean "checked", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "comment"
     t.index ["post_id"], name: "index_notifications_on_post_id"
     t.index ["response_id"], name: "index_notifications_on_response_id"
     t.index ["user_id"], name: "index_notifications_on_user_id"
@@ -43,7 +44,7 @@ ActiveRecord::Schema.define(version: 2023_08_02_041931) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", default: 1, null: false
-    t.integer "likes_count", default: 0, null: false
+    t.integer "post_likes_count", default: 0, null: false
     t.integer "responses_count"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
@@ -59,6 +60,7 @@ ActiveRecord::Schema.define(version: 2023_08_02_041931) do
     t.bigint "response_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "post_id"
     t.index ["response_id"], name: "index_response_likes_on_response_id"
     t.index ["user_id"], name: "index_response_likes_on_user_id"
   end
@@ -69,7 +71,7 @@ ActiveRecord::Schema.define(version: 2023_08_02_041931) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
-    t.integer "likes_count", default: 0
+    t.integer "response_likes_count", default: 0
     t.index ["post_id"], name: "index_responses_on_post_id"
     t.index ["user_id"], name: "index_responses_on_user_id"
   end
@@ -82,7 +84,7 @@ ActiveRecord::Schema.define(version: 2023_08_02_041931) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "nickname"
+    t.string "nickname", null: false
     t.integer "prefecture", null: false
     t.boolean "admin", default: false
     t.string "unconfirmed_email"

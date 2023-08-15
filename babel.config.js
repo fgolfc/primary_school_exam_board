@@ -47,6 +47,9 @@ module.exports = function(api) {
           loose: true
         }
       ],
+      // 下記2行を追加
+      ["@babel/plugin-transform-private-methods", { "loose": true }],
+      ["@babel/plugin-transform-private-property-in-object", { "loose": true }],
       [
         '@babel/plugin-proposal-object-rest-spread',
         {
