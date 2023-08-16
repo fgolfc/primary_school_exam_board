@@ -1,2 +1,2 @@
-document.getElementById("like-count-<%= @post.id %>").innerHTML = "<%= @post.post_likes.count %>";
-document.getElementById("like-button-<%= @post.id %>").innerHTML = "Unlike";
+$("#like-button-<%= @post.id %>").html('<%= j link_to "いいねをキャンセル", post_post_like_path(post_id: @post.id, id: @post_like.id), method: :delete, remote: true, class: "btn custom-like-btn small-font", data: { post_id: @post.id } %>');
+$("#like-count-<%= @post.id %>").text('<%= @post.post_likes.size %>');

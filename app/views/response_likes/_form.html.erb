@@ -1,9 +1,0 @@
-<%= form_with(model: @response_like, local: true) do |form| %>
-  <div class="field">
-    <%= form.hidden_field :response_id, value: @response.id %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit "Like" %>
-  </div>
-<% end %>

@@ -1,47 +1,32 @@
 class ResponseLikesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_response
-
-  def index
-    @response_likes = ResponseLike.all
-  end
+  before_action :set_response_like, only: :destroy
 
   def create
-    @response_like = current_user.response_likes.find_or_initialize_by(response_id: @response.id)
-  
+    @response_like = current_user.response_likes.find_or_initialize_by(response: @response)
     if @response_like.persisted?
-      render json: { status: 'already_exists', message: 'Like already exists.' }, status: :unprocessable_entity
+      render js: "alert('You already liked this response!');" # UX的に推奨されない直接のalertですが、エラーハンドリングの一例として示しています。
     else
-      if @response_like.save
-        respond_to do |format|
-          format.json { render json: { response_id: @response.id, like_count: @response.response_likes.count } }
-        end
-      else
-        render json: { status: 'error', message: 'Failed to save the like.' }, status: :unprocessable_entity
+      unless @response_like.save
+        render js: "alert('Failed to like the response. Please try again.');"
       end
     end
-  end  
+  end
 
   def destroy
-    @response_like = current_user.response_likes.find_by(response_id: @response.id)
-    if @response_like && @response_like.destroy
-      render json: { response_id: @response.id, like_count: @response.response_likes.count }
-    else
-      render json: { status: 'error', message: 'Failed to delete the like or like not found.' }, status: :unprocessable_entity
+    unless @response_like&.destroy
+      render js: "alert('Failed to unlike the response. Please try again.');"
     end
   end
   
-  def show
-    @response_like = ResponseLike.find(params[:id])
-    respond_to do |format|
-      format.html
-      format.json
-    end
-  end
-
   private
 
   def set_response
     @response = Response.find(params[:response_id])
+  end
+
+  def set_response_like
+    @response_like = current_user.response_likes.find_by(response: @response)
   end
 end

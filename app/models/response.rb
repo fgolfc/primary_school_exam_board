@@ -1,12 +1,9 @@
 class Response < ApplicationRecord
   belongs_to :user
   belongs_to :post, counter_cache: true
-  has_many :response_likes
+  has_many :response_likes, dependent: :destroy
 
   validate :author_cannot_respond
-  
-  after_create :increment_post_responses_count
-  after_destroy :decrement_post_responses_count
 
   def likes_count
     self.response_likes_count

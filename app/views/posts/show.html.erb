@@ -53,11 +53,11 @@
               <div>
                 <% if user_signed_in? %>
                   <span id="like-button-response-<%= response.id %>">
-                    <% response_like = current_user.response_likes.find_by(response: response) %>
+                    <% response_like = response.response_likes.find_by(user: current_user) %>
                     <% if response_like.present? %>
-                      <%= link_to 'いいねをキャンセル', response_response_like_path(response_id: response.id, id: response_like.id), method: :delete, remote: true, class: 'btn custom-like-btn small-font' %>
+                      <%= link_to 'いいねをキャンセル', response_response_like_path(response_id: response.id, id: response_like.id), method: :delete, remote: true, class: 'btn custom-like-btn small-font', data: { response_id: response.id, like_id: response_like.id } %>
                     <% else %>
-                      <%= link_to '❤️ いいね', response_response_likes_path(response_id: response.id), method: :post, remote: true, class: 'btn custom-like-btn small-font' %>
+                      <%= link_to '❤️ いいね', response_response_likes_path(response_id: response.id), method: :post, remote: true, class: 'btn custom-like-btn small-font', data: { response_id: response.id } %>
                     <% end %>
                   </span>
                   <span id="like-count-response-<%= response.id %>" class="ml-0"><%= response.response_likes.count %></span>

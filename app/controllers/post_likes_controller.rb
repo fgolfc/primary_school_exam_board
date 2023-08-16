@@ -1,47 +1,32 @@
 class PostLikesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post
-
-  def index
-    @post_likes = PostLike.all
-  end
+  before_action :set_post_like, only: :destroy
 
   def create
     @post_like = current_user.post_likes.find_or_initialize_by(post: @post)
-  
     if @post_like.persisted?
-      render json: { status: 'already_exists', message: 'Like already exists.' }, status: :unprocessable_entity
+      render js: "alert('You already liked this post!');" # このような直接のalertはUX的には推奨されませんが、簡単なエラーハンドリングの一例として示しています。
     else
-      if @post_like.save
-        respond_to do |format|
-          format.json { render json: { post_id: @post.id, like_count: @post.post_likes.count } }
-        end
-      else
-        render json: { status: 'error', message: 'Failed to save the like.' }, status: :unprocessable_entity
+      unless @post_like.save
+        render js: "alert('Failed to like the post. Please try again.');"
       end
     end
-  end  
+  end
 
   def destroy
-    @post_like = current_user.post_likes.find_by(post: @post)
-    if @post_like && @post_like.destroy
-      render json: { post_id: @post.id, like_count: @post.post_likes.count }
-    else
-      render json: { status: 'error', message: 'Failed to delete the like or like not found.' }, status: :unprocessable_entity
+    unless @post_like&.destroy
+      render js: "alert('Failed to unlike the post. Please try again.');"
     end
   end
   
-  def show
-    @post_like = PostLike.find(params[:id])
-    respond_to do |format|
-      format.html
-      format.json
-    end
-  end
-
   private
 
   def set_post
     @post = Post.find(params[:post_id])
+  end
+
+  def set_post_like
+    @post_like = current_user.post_likes.find_by(post: @post)
   end
 end

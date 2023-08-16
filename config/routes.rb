@@ -20,7 +20,6 @@ Rails.application.routes.draw do
     get 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
   end
   resources :likes, only: [:create, :destroy]
-  # 他のルーティング設定
 
   root 'posts#index'
   
