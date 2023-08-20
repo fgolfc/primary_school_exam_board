@@ -6,12 +6,6 @@ class UsersController < ApplicationController
   def show
   end
 
-  def destroy
-    @user.posts.each { |post| post.likes.destroy_all }
-    @user.destroy
-    redirect_to users_path, notice: "User has been deleted."
-  end
-
   private
 
   def user_params

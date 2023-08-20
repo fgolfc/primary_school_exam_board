@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :responses do
     resources :response_likes, only: [:create, :destroy]
   end
-  post "/notifications", to: "notifications#create"
+  resources :notifications, only: [:create]
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
     get '/users', to: redirect("/users/sign_up")

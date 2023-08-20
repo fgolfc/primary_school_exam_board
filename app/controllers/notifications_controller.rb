@@ -2,21 +2,17 @@ class NotificationsController < ApplicationController
   def create
     @notification = Notification.new(notification_params)
     if @notification.save
-        respond_to do |format|
-            format.html { redirect_to posts_url }
-            format.js   # <-- JSフォーマットの追加
-        end
+      @user = @notification.user
+      NotificationMailer.notify_admin(@notification).deliver_now
+      render json: { status: 'success', message: '通知が成功しました' }
     else
-        respond_to do |format|
-            format.html { render :new }
-            format.js   # <-- JSフォーマットの追加
-        end
+      render json: { status: 'error', message: @notification.errors.full_messages }, status: :unprocessable_entity
     end
-  end  
+  end
 
   private
 
   def notification_params
-    params.permit(:user_id, :post_id, :action, :checked, :comment)
+    params.permit(:user_id, :post_id, :comment)
   end  
 end

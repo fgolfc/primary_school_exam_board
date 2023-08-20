@@ -1,12 +1,4 @@
 ja:
-  time:
-    formats:
-      long: "%Y年%m月%d日 %H:%M"
-  datetime:
-    distance_in_words:
-      x_days:
-        one: "1日"
-        other: "%{count}日"
   activerecord:
     attributes:
       user:
@@ -22,46 +14,9 @@ ja:
         failed_attempts: 失敗したログイン試行回数
         last_sign_in_at: 最終ログイン時刻
         last_sign_in_ip: 最終ログインIPアドレス
-        living_area: 居住エリア
-        living_area_comment: （主に首都圏近郊を中心としたエリアを対象としています）
         locked_at: ロック時刻
-        nickname: ユーザーネーム
         password: パスワード
         password_confirmation: パスワード（確認用）
-        prefecture: "お住まいのエリア"
-        prefectures:
-          tokyo_chuoku: "東京都 中央区"
-          tokyo_chiyodaku: "東京都 千代田区"
-          tokyo_minatoku: "東京都 港区"
-          tokyo_shinjukuku: "東京都 新宿区"
-          tokyo_bunkyoku: "東京都 文京区"
-          tokyo_taitoku: "東京都 台東区"
-          tokyo_sumidaku: "東京都 墨田区"
-          tokyo_kotoku: "東京都 江東区"
-          tokyo_shinagawaku: "東京都 品川区"
-          tokyo_meguroku: "東京都 目黒区"
-          tokyo_otaku: "東京都 大田区"
-          tokyo_setagayaku: "東京都 世田谷区"
-          tokyo_shibuyaku: "東京都 渋谷区"
-          tokyo_nakanoku: "東京都 中野区"
-          tokyo_suginamiku: "東京都 杉並区"
-          tokyo_toshimaku: "東京都 豊島区"
-          tokyo_kitaku: "東京都 北区"
-          tokyo_arakawaku: "東京都 荒川区"
-          tokyo_itabashiku: "東京都 板橋区"
-          tokyo_nerimaku: "東京都 練馬区"
-          tokyo_adachiku: "東京都 足立区"
-          tokyo_katsushikaku: "東京都 葛飾区"
-          tokyo_edogawaku: "東京都 江戸川区"
-          tokyo_musashino_shi: "東京都 武蔵野市"
-          tokyo_mitaka_shi: "東京都 三鷹市"
-          tokyo_komae_shi: "東京都 狛江市"
-          tokyo_kokubnunji_shi: "東京都 国分寺市"
-          kanagawa: "神奈川県"
-          chiba: "千葉県"
-          saitama: "埼玉県"
-          ibaraki: "茨城県"
-          others: "その他"
         remember_created_at: ログイン記憶時刻
         remember_me: ログインを記憶する
         reset_password_sent_at: パスワードリセット送信時刻
@@ -72,35 +27,6 @@ ja:
         updated_at: 更新日
     models:
       user: ユーザー
-    errors:
-      models:
-        user:
-          attributes:
-            email:
-              taken: "はすでに存在します"
-            password:
-              blank: "を入力してください"
-            nickname:
-              blank: "を入力してください"
-            password_confirmation:
-              confirmation: "が一致しません"
-            password:
-              blank: "パスワードを入力してください"
-              too_short: "は%{count}文字以上で入力してください"
-            prefecture:
-              blank: "を選択してください"
-        response:
-          attributes:
-            post:
-              required: "必要な属性です"
-    full_messages:
-        format: "%{message}"
-  helpers:
-    label:
-      user:
-        nickname: ニックネーム
-        prefecture: 居住エリア
-        living_area_comment: （主に東京近郊を中心としたエリアを対象としています）
   devise:
     confirmations:
       confirmed: メールアドレスが確認できました。
@@ -215,15 +141,3 @@ ja:
       not_saved:
         one: エラーが発生したため %{resource} は保存されませんでした。
         other: "%{count} 件のエラーが発生したため %{resource} は保存されませんでした。"
-    models:
-      user:
-        attributes:
-          email:
-            taken: "は既に使用されています"
-  buttons:
-    update: 更新
-    back: "戻る"
-  messages:
-    leave_blank_if_no_change: "（変更がない場合は空白にしてください）"
-    current_password_needed: "（変更には現在のパスワードが必要です）"
-    minimum_password_length: "パスワードは%{length}文字以上で"

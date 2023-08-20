@@ -50,9 +50,9 @@
               <div>
                 <% if user_signed_in? %>
                   <span id="like-button-<%= post.id %>">
-                    <% post_like = current_user.post_likes.find_by(post: @post) %>
+                    <% post_like = current_user.post_likes.find_by(post: post) %>
                     <% if post_like.present? %>
-                      <%= link_to 'いいねをキャンセル', post_post_like_path(post_id: post.id, id: post_like.id), method: :delete, remote: true, class: 'btn custom-like-btn small-font', data: { post_id: @post.id, like_id: post_like.id } %>
+                      <%= link_to 'いいねをキャンセル', post_post_like_path(post_id: post.id, id: post_like.id), method: :delete, remote: true, class: 'btn custom-like-btn small-font', data: { post_id: post.id, like_id: post_like.id } %>
                     <% else %>
                       <%= link_to '❤️ いいね', post_post_likes_path(post_id: post.id), method: :post, remote: true, class: 'btn custom-like-btn small-font', data: { post_id: post.id } %>
                     <% end %>
@@ -63,17 +63,20 @@
         
               <div>
                 <% if current_user %>
-                  <%= form_with(url: notifications_path, local: false, id: "notification-form", style: "display: none;") do |form| %>
+                  <%= form_with(url: notifications_path, local: false, id: "notification-form-#{post.id}", style: "display: none;") do |form| %>
                     <%= form.hidden_field :user_id, value: current_user.id %>
-                    <%= form.hidden_field :post_id, id: "post-id-field" %>
-                    <div id="comment-section" style="display: none;">
+                    <%= form.hidden_field :post_id, id: "post-id-field-#{post.id}" %>
+                    <div id="comment-section-<%= post.id %>" style="display: none;">
                       <%= form.text_area :comment, id: "comment" %>
-                      <%= form.submit "通知する", class: "btn custom-notify-btn small-font", id: "submit-btn" %>
+                      <%= form.submit "通知する", class: "btn custom-notify-btn small-font", id: "submit-btn-#{post.id}", style: "display: none;" %>
                     </div>
                   <% end %>
-                  <button id="notify-admin-btn" class="btn custom-notify-btn small-font">管理者に通知</button>
+                  <% if current_user %>
+                    <button id="notify-admin-btn-<%= post.id %>" class="btn custom-notify-btn small-font" data-post-id="<%= post.id %>">管理者に通知</button>
+                  <% end %>
                 <% end %>
               </div>
+
               <div>
                 <% if current_user&.admin? %>
                   <%= link_to '投稿を削除する', post_path(post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger small-font" %>

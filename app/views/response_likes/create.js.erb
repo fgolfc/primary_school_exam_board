@@ -1,2 +1,2 @@
-$("#response-like-count-<%= @response.id %>").text('<%= @response.response_likes.count %>');
-$("#response-like-button-<%= @response.id %>").html('<%= j link_to "いいねをキャンセル", response_response_like_path(response_id: @response.id, id: @response_like.id), method: :delete, remote: true, class: "btn custom-like-btn small-font", data: { response_id: @response.id } %>');
+$("#like-count-response-<%= @response.id %>").text('<%= @response.response_likes.count %>');
+$("#like-button-response-<%= @response.id %>").html('<%= j link_to "いいねをキャンセル", response_response_like_path(response_id: @response.id, id: @response_like.id), method: :delete, remote: true, class: "btn custom-like-btn small-font", data: { response_id: @response.id } %>');
