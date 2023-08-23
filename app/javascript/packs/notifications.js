@@ -7,7 +7,10 @@ document.addEventListener('turbolinks:load', function() {
         if (!notifyAdminButton.dataset.listenerAdded) {
             notifyAdminButton.dataset.listenerAdded = 'true'; 
 
-            notifyAdminButton.addEventListener('click', function() {
+            notifyAdminButton.addEventListener('click', function(event) {
+                // このイベントが親要素に伝播するのを止める
+                event.stopPropagation();
+
                 notifyAdminButton.style.display = 'none';
                 
                 // 各投稿のためのフォーム、コメントセクション、ボタン、隠しフィールドを指定する
