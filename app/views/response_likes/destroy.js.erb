@@ -1,2 +1,2 @@
-$("#response-like-count-<%= @response.id %>").text('<%= @response.response_likes.count %>');
-$("#response-like-button-<%= @response.id %>").html('<%= j link_to "❤️ いいね", response_response_likes_path(response_id: @response.id), method: :post, remote: true, class: "btn custom-like-btn small-font", data: { response_id: @response.id } %>');
+$("#like-count-response-<%= @response.id %>").text('<%= @response.response_likes.count %>');
+$("#like-button-response-<%= @response.id %>").html('<%= j link_to "❤️ いいね", response_response_likes_path(response_id: @response.id), method: :post, remote: true, class: "btn custom-like-btn small-font", data: { response_id: @response.id } %>');

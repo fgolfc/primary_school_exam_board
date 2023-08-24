@@ -3,6 +3,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable
   
   validates :nickname, presence: true
+  validates :prefecture, presence: true
   
   has_many :posts
   has_many :responses
@@ -11,14 +12,13 @@ class User < ApplicationRecord
   has_many :notifications, dependent: :destroy
   
   def prefecture_i18n
-    I18n.t("activerecord.attributes.user.prefectures.#{prefecture}")
+    result = I18n.t("activerecord.attributes.user.prefectures.#{prefecture}")
   end
 
   rails_admin do
     list do
       field :email
       field :prefecture_i18n
-      # 他のフィールドもここに追加できます。
     end
   end
 

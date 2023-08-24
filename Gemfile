@@ -63,7 +63,11 @@ group :test do
   gem 'capybara-email'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
+<<<<<<< HEAD
   gem 'webdrivers', '5.3.0'
+=======
+  gem 'webdrivers'
+>>>>>>> origin/master
   gem 'shoulda-matchers'
 end
 

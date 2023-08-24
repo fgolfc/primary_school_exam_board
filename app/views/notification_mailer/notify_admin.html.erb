@@ -1,8 +1,7 @@
-<h1>新しい投稿通告連絡</h1>
+<h3>投稿通告連絡</h3>
 
 <p>
-  通告者: <%= @notification.user_id || 'N/A' %><br>
-  投稿ID: <%= @notification.post_id || 'N/A' %><br>
-  アクション: <%= @notification.action %><br>
+  通告者: <%= @user ? @user.nickname : 'N/A' %><br>
+  投稿ID: <%= @notification.post ? @notification.post.title : 'N/A' %><br>
   通知内容: <%= @notification.comment %>
 </p>

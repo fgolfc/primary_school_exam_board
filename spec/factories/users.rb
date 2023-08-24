@@ -10,6 +10,6 @@ FactoryBot.define do
     end
     password { "password" }
     prefecture { :tokyo_chuoku }
-    # 他の必要な属性も追加してください。
+    confirmed_at { Time.now }
   end
 end
