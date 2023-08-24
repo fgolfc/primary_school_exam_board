@@ -63,16 +63,18 @@
         
               <div>
                 <% if current_user %>
-                  <%= form_with(url: notifications_path, local: false, id: "notification-form", style: "display: none;") do |form| %>
-                    <%= form.hidden_field :user_id, value: current_user.id %>
-                    <%= form.hidden_field :post_id, id: "post-id-field" %>
-                    <div id="comment-section" style="display: none;">
-                      <%= form.text_area :comment, id: "comment" %>
-                      <%= form.submit "通知する", class: "btn custom-notify-btn small-font", id: "submit-btn" %>
-                    </div>
-                  <% end %>
-                  <button id="notify-admin-btn" class="btn custom-notify-btn small-font">🔔管理者に通知する</button>
+                <%= form_with(url: notifications_path, local: false, id: "notification-form-#{post.id}", style: "display: none;") do |form| %>
+                  <%= form.hidden_field :user_id, value: current_user.id %>
+                  <%= form.hidden_field :post_id, id: "post-id-field-#{post.id}" %>
+                  <div id="comment-section-<%= post.id %>" style="display: none;">
+                    <%= form.text_area :comment, id: "comment" %>
+                    <%= form.submit "通知する", class: "btn custom-notify-btn small-font", id: "submit-btn-#{post.id}", style: "display: none;" %>
+                  </div>
                 <% end %>
+                <% if current_user %>
+                  <button id="notify-admin-btn-<%= post.id %>" class="btn custom-notify-btn small-font" data-post-id="<%= post.id %>">管理者に通知</button>
+                <% end %>
+              <% end %>
               </div>
               <div>
                 <% if current_user&.admin? %>
