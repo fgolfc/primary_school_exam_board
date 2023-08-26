@@ -1,6 +1,5 @@
 $(document).on('click', '.custom-like-btn', function(event) {
     event.preventDefault(); // Prevent default behavior of the link
-    event.stopPropagation();
 
     var postId = $(this).data('post-id');
     var isLiked = $(this).text().trim() === 'いいねをキャンセル';

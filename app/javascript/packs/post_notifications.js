@@ -9,7 +9,7 @@ document.addEventListener('turbolinks:load', function() {
 
             notifyAdminButton.addEventListener('click', function(event) {
                 // このイベントが親要素に伝播するのを止める
-                event.stopPropagation();
+                // event.stopPropagation();
 
                 notifyAdminButton.style.display = 'none';
                 
@@ -25,7 +25,10 @@ document.addEventListener('turbolinks:load', function() {
                     console.error(`Element with ID post-id-field-${postId} not found.`);
                     return; // この要素が見つからない場合、以降のコードを実行しない
                 }
-                
+                if (!notificationForm || !commentSection || !submitButton) {
+                    console.error("Some elements are missing!");
+                    return;
+                }
                 notificationForm.style.display = 'block';
                 commentSection.style.display = 'block';
                 submitButton.style.display = 'block';

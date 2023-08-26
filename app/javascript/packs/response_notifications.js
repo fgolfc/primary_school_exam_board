@@ -1,53 +1,53 @@
 document.addEventListener('turbolinks:load', function() {
-  const responseNotificationButtons = document.querySelectorAll('[data-response-id]');
-  
-  responseNotificationButtons.forEach((responseNotificationButton) => {
-      const responseId = responseNotificationButton.getAttribute('data-response-id');
+  const responseNotifyAdminButtons = document.querySelectorAll('[data-response-id]');
 
-      // リスナーがすでに追加されていないことを確認する
-      if (!responseNotificationButton.dataset.listenerAdded) {
-          responseNotificationButton.dataset.listenerAdded = 'true';
+  responseNotifyAdminButtons.forEach((notifyAdminButton) => {
+      const responseId = notifyAdminButton.getAttribute('data-response-id');
 
-          responseNotificationButton.addEventListener('click', function(event) {
-              // このイベントが親要素に伝播するのを止める
-              event.stopPropagation();
+      // ここでresponseのpost_idを取得します
+      const hiddenPostIdField = document.getElementById(`post-id-field-${responseId}`);
+      const postIdValue = hiddenPostIdField ? hiddenPostIdField.value : null;
+      
+      if (!notifyAdminButton.dataset.listenerAdded) {
+          notifyAdminButton.dataset.listenerAdded = 'true'; 
 
-              responseNotificationButton.style.display = 'none';
-              
-              // 各通知のためのフォーム、コメントセクション、ボタン、隠しフィールドを指定する
-              const responseForm = document.getElementById(`response-form-${responseId}`);
+          notifyAdminButton.addEventListener('click', function(event) {
+              notifyAdminButton.style.display = 'none';
+
+              const responseNotificationForm = document.getElementById(`notification-form-${responseId}`);
               const commentSection = document.getElementById(`comment-section-${responseId}`);
               const submitButton = document.getElementById(`submit-btn-${responseId}`);
               const hiddenResponseIdField = document.getElementById(`response-id-field-${responseId}`);
 
-              if (hiddenResponseIdField) {
+              if (hiddenResponseIdField && postIdValue) {
                   hiddenResponseIdField.value = responseId;
+                  // ここでpost_idのhidden fieldの値をセットします
+                  hiddenPostIdField.value = postIdValue;
               } else {
-                  console.error(`Element with ID response-id-field-${responseId} not found.`);
-                  return; // この要素が見つからない場合、以降のコードを実行しない
+                  console.error(`Element with ID response-id-field-${responseId} or post-id-field-${responseId} not found.`);
+                  return;
               }
-              
-              responseForm.style.display = 'block';
+
+              responseNotificationForm.style.display = 'block';
               commentSection.style.display = 'block';
               submitButton.style.display = 'block';
 
-              // 以下の部分で、同じフォームに対してajax:successやajax:errorのイベントリスナーが何度も追加されることを避けるためにチェックが必要です
-              if (!responseForm.dataset.listenerAdded) {
-                  responseForm.dataset.listenerAdded = 'true';
+              if (!responseNotificationForm.dataset.listenerAdded) {
+                  responseNotificationForm.dataset.listenerAdded = 'true';
 
-                  responseForm.addEventListener('ajax:success', function() {
-                      alert("返答が成功しました");
-                      responseForm.style.display = 'none';
+                  responseNotificationForm.addEventListener('ajax:success', function() {
+                      alert("通知が成功しました");
+                      responseNotificationForm.style.display = 'none';
                       commentSection.style.display = 'none';
                       submitButton.style.display = 'none';
-                      responseNotificationButton.style.display = 'block';
+                      notifyAdminButton.style.display = 'block';
                   });
 
-                  responseForm.addEventListener('ajax:error', function(event) {
+                  responseNotificationForm.addEventListener('ajax:error', function(event) {
                       const detail = event.detail;
                       const errorMessages = detail[0]['errors'] || [];
                       alert(errorMessages.join(", "));
-                      responseNotificationButton.style.display = 'block'; 
+                      notifyAdminButton.style.display = 'block';
                   });
               }
           });

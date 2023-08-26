@@ -6,7 +6,7 @@ class ResponseLikesController < ApplicationController
   def create
     @response_like = current_user.response_likes.find_or_initialize_by(response: @response)
     if @response_like.persisted?
-      render js: "alert('You already liked this response!');" # UX的に推奨されない直接のalertですが、エラーハンドリングの一例として示しています。
+      render js: "alert('You already liked this response!');" 
     else
       unless @response_like.save
         render js: "alert('Failed to like the response. Please try again.');"

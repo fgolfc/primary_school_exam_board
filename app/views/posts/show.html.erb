@@ -26,7 +26,19 @@
               <% end %>
             </div>
         
-            <button class="btn custom-notify-btn small-font">管理者に通知</button>
+            <div>
+              <% if current_user %>
+                <%= form_with(url: notifications_path, local: false, id: "notification-form-#{@post_id}", style: "display: none;") do |form| %>
+                  <%= form.hidden_field :user_id, value: current_user.id %>
+                  <%= form.hidden_field :post_id, id: "post-id-field-#{@post_id}" %>
+                  <div id="comment-section-#{@post_id}" style="display: none;">
+                    <%= form.text_area :comment, id: "comment" %>
+                    <%= form.submit "通知する", class: "btn custom-notify-btn small-font", id: "submit-btn-#{@post_id}", style: "display: none;" %>
+                  </div>
+                <% end %>
+                <button id="notify-admin-btn-<%= @post_id %>" class="btn custom-notify-btn small-font" data-post-id="<%= @post_id %>">管理者に通知</button>
+              <% end %>
+            </div>
 
             <% if current_user&.admin? %>
               <%= link_to '投稿を削除する', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger small-font" %>
@@ -64,7 +76,19 @@
                 <% end %>
               </div>
           
-              <button class="btn custom-notify-btn small-font">管理者に通知</button>
+              <div>
+                <% if current_user %>
+                  <%= form_with(url: notifications_path, local: false, id: "notification-form-#{response.id}", style: "display: none;") do |form| %>
+                    <%= form.hidden_field :user_id, value: current_user.id %>
+                    <%= form.hidden_field :post_id, value: @post.id %>
+                    <div id="comment-section-#{response.id}" style: "display: none;">
+                      <%= form.text_area :comment, id: "comment" %>
+                      <%= form.submit "通知する", class: "btn custom-notify-btn small-font", id: "submit-btn-#{response.id}", style: "display: none;" %>
+                    </div>
+                  <% end %>
+                  <button id="notify-admin-btn-#{response.id}" class="btn custom-notify-btn small-font" data-post-id="<%= response.id %>">管理者に通知</button>
+                <% end %>
+              </div>
 
               <% if current_user&.admin? %>
                 <%= link_to '投稿を削除する', post_response_path(@post, response), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger small-font" %>
