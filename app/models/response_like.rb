@@ -2,10 +2,10 @@ class ResponseLike < ApplicationRecord
   belongs_to :user
   belongs_to :response
 
+  validates :user_id, uniqueness: { scope: :response_id }
+
   after_create :increment_responses_likes_count
   after_destroy :decrement_responses_likes_count
-
-  validates :user_id, uniqueness: { scope: :response_id }
 
   private
 

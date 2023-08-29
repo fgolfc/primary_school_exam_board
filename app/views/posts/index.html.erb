@@ -49,7 +49,7 @@
             <div class="card-footer text-muted small d-flex justify-content-between">
               <div>
                 <% if user_signed_in? %>
-                  <span id="like-button-<%= post.id %>">
+                  <span id="like-button-post-<%= post.id %>">
                     <% post_like = current_user.post_likes.find_by(post: post) %>
                     <% if post_like.present? %>
                       <%= link_to 'いいねをキャンセル', post_post_like_path(post_id: post.id, id: post_like.id), method: :delete, remote: true, class: 'btn custom-like-btn small-font', data: { post_id: post.id, like_id: post_like.id } %>
@@ -57,7 +57,7 @@
                       <%= link_to '❤️ いいね', post_post_likes_path(post_id: post.id), method: :post, remote: true, class: 'btn custom-like-btn small-font', data: { post_id: post.id } %>
                     <% end %>
                   </span>
-                  <span id="like-count-<%= post.id %>" class="ml-0"><%= post.post_likes.count %></span>
+                  <span id="like-count-post-<%= post.id %>" class="ml-0"><%= post.post_likes.count %></span>
                 <% end %>
               </div>
         

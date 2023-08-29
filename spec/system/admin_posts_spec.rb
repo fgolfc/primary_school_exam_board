@@ -17,7 +17,7 @@ RSpec.describe "Posts", type: :system do
         click_link '投稿を削除する'
       end
 
-      expect(page).to have_content('Post has been deleted.') # 実際の通知メッセージに合わせてください。
+      expect(page).to have_content('Post was successfully destroyed.')
       expect(Post.exists?(post.id)).to be_falsey
     end
   end

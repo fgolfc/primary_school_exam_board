@@ -3,8 +3,10 @@ require 'rails_helper'
 RSpec.describe "Users", type: :system do
   let(:user) { create(:user) }
   let(:admin) { create(:user, admin: true) }
+  let(:other_user) { create(:user) }
 
   before do
+    ActionMailer::Base.deliveries.clear
     user.send_confirmation_instructions
   end
 
@@ -33,7 +35,6 @@ RSpec.describe "Users", type: :system do
     context 'when accessed by an admin' do
       before do
         sign_in admin
-        confirm_email
         visit user_path(user)
       end
 
@@ -43,7 +44,6 @@ RSpec.describe "Users", type: :system do
     end
 
     context 'when accessed by another user' do
-      let(:other_user) { create(:user) }
       before do
         sign_in other_user
         visit user_path(user)
