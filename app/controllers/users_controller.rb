@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   end
 
   def authorize_user
-    unless current_user == @user || current_user.admin?
+    unless current_user && (current_user == @user || current_user.admin?)
       redirect_to root_path, alert: "You do not have permission to access this page."
     end
   end

@@ -63,17 +63,7 @@
         
               <div>
                 <% if current_user %>
-                  <%= form_with(url: notifications_path, local: false, id: "notification-form-#{post.id}", style: "display: none;") do |form| %>
-                    <%= form.hidden_field :user_id, value: current_user.id %>
-                    <%= form.hidden_field :post_id, id: "post-id-field-#{post.id}" %>
-                    <div id="comment-section-<%= post.id %>" style="display: none;">
-                      <%= form.text_area :comment, id: "comment" %>
-                      <%= form.submit "通知する", class: "btn custom-notify-btn small-font", id: "submit-btn-#{post.id}", style: "display: none;" %>
-                    </div>
-                  <% end %>
-                  <% if current_user %>
                     <button id="notify-admin-btn-<%= post.id %>" class="btn custom-notify-btn small-font" data-post-id="<%= post.id %>">管理者に通知</button>
-                  <% end %>
                 <% end %>
               </div>
 
@@ -88,6 +78,19 @@
                   <span class="ml-2 align-items-center">回答数: <%= post.responses.size %></span>
                 </div>
               </div>
+            </div>
+            <div class="center-container" style="display: flex; justify-content: center;">
+              <% if current_user %>
+                  <%= form_with(url: notifications_path, local: false, id: "notification-form-#{post.id}", style: "opacity: 0; visibility: hidden; width: fit-content;") do |form| %>
+                      <%= form.hidden_field :user_id, value: current_user.id %>
+                      <%= form.hidden_field :post_id, id: "post-id-field-#{post.id}" %>
+                      
+                      <div id="comment-section-<%= post.id %>" style="opacity: 0; visibility: hidden;" class="d-flex flex-row align-items-center">
+                          <%= form.text_area :comment, id: "comment", style: "margin-right: 10px;" %>
+                          <%= form.submit "通知する", class: "btn custom-notify-btn small-font", id: "submit-btn-#{post.id}", style: "opacity: 0; visibility: hidden;" %>
+                      </div>
+                  <% end %>
+              <% end %>
             </div>
           </div>
         <% end %>

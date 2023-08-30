@@ -129,3 +129,9 @@
   background-color: #f5f5f5;
   border-color: #ddd;
 }
+
+.center-container {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease; /* オプション: アニメーション効果を追加 */
+}

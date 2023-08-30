@@ -13,94 +13,127 @@
           </div>
           <div class="card-footer text-muted small d-flex justify-content-between">
             <div>
-              <% if user_signed_in? %>
-                <span id="like-button-<%= @post.id %>">
-                <% post_like = current_user.post_likes.find_by(post: @post) %>
-                <% if post_like.present? %>
-                  <%= link_to 'いいねをキャンセル', post_post_like_path(post_id: @post.id, id: post_like.id), method: :delete, remote: true, class: 'btn custom-like-btn small-font' %>
-                <% else %>
-                  <%= link_to '❤️ いいね', post_post_likes_path(post_id: @post.id), method: :post, remote: true, class: 'btn custom-like-btn small-font' %>
+                <% if user_signed_in? %>
+                    <span id="like-button-post-<%= @post.id %>">
+                        <% post_like = current_user.post_likes.find_by(post: @post) %>
+                        <% if post_like.present? %>
+                            <%= link_to 'いいねをキャンセル', post_post_like_path(post_id: @post.id, id: post_like.id), method: :delete, remote: true, class: 'btn custom-like-btn small-font', data: { post_id: @post.id, like_id: post_like.id } %>
+                        <% else %>
+                            <%= link_to '❤️ いいね', post_post_likes_path(post_id: @post.id), method: :post, remote: true, class: 'btn custom-like-btn small-font', data: { post_id: @post.id } %>
+                        <% end %>
+                    </span>
+                    <span id="like-count-post-<%= @post.id %>" class="ml-0"><%= @post.post_likes.count %></span>
                 <% end %>
-              </span>
-              <span id="like-count-<%= @post.id %>" class="ml-0"><%= @post.post_likes.count %></span>
-              <% end %>
             </div>
-        
+
             <div>
-              <% if current_user %>
-                <%= form_with(url: notifications_path, local: false, id: "notification-form-#{@post_id}", style: "display: none;") do |form| %>
-                  <%= form.hidden_field :user_id, value: current_user.id %>
-                  <%= form.hidden_field :post_id, id: "post-id-field-#{@post_id}" %>
-                  <div id="comment-section-#{@post_id}" style="display: none;">
-                    <%= form.text_area :comment, id: "comment" %>
-                    <%= form.submit "通知する", class: "btn custom-notify-btn small-font", id: "submit-btn-#{@post_id}", style: "display: none;" %>
-                  </div>
+                <% if current_user %>
+                    <button id="notify-admin-btn-<%= @post.id %>" class="btn custom-notify-btn small-font" data-post-id="<%= @post.id %>">管理者に通知</button>
                 <% end %>
-                <button id="notify-admin-btn-<%= @post_id %>" class="btn custom-notify-btn small-font" data-post-id="<%= @post_id %>">管理者に通知</button>
-              <% end %>
             </div>
 
-            <% if current_user&.admin? %>
-              <%= link_to '投稿を削除する', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger small-font" %>
-            <% end %>
+            <div>
+                <% if current_user&.admin? %>
+                    <%= link_to '投稿を削除する', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger small-font" %>
+                <% end %>
+                <div class="d-flex">
+                    <% if current_user %>
+                        <%= link_to '回答する', new_post_response_path(@post), class: "btn custom-answer-btn small-font align-items-center" %>
+                    <% end %>
+                </div>
+            </div>
+        </div>
 
-            <%= link_to '回答する', new_post_response_path(@post), class: "btn custom-answer-btn small-font" %>
-          </div>
+        <div class="center-container" style="display: flex; justify-content: center;">
+            <% if current_user %>
+                <%= form_with(url: notifications_path, local: false, id: "notification-form-#{@post.id}", style: "opacity: 0; visibility: hidden; width: fit-content;") do |form| %>
+                    <%= form.hidden_field :user_id, value: current_user.id %>
+                    <%= form.hidden_field :post_id, id: "post-id-field-#{@post.id}" %>
+                    
+                    <div id="comment-section-<%= @post.id %>" style="opacity: 0; visibility: hidden;" class="d-flex flex-row align-items-center">
+                        <%= form.text_area :comment, id: "comment", style: "margin-right: 10px;" %>
+                        <%= form.submit "通知する", class: "btn custom-notify-btn small-font", id: "submit-btn-#{@post.id}", style: "opacity: 0; visibility: hidden;" %>
+                    </div>
+                <% end %>
+            <% end %>
+        </div>
+        <div class="center-container" style="display: flex; justify-content: center;">
+            <% if current_user %>
+                <%= form_with(url: notifications_path, local: false, id: "notification-form-#{@post.id}", style: "opacity: 0; visibility: hidden; width: fit-content;") do |form| %>
+                    <%= form.hidden_field :user_id, value: current_user.id %>
+                    <%= form.hidden_field :post_id, id: "post-id-field-#{@post.id}" %>
+                    
+                    <div id="comment-section-<%= @post.id %>" style="opacity: 0; visibility: hidden;" class="d-flex flex-row align-items-center">
+                        <%= form.text_area :comment, id: "comment", style: "margin-right: 10px;" %>
+                        <%= form.submit "通知する", class: "btn custom-notify-btn small-font", id: "submit-btn-#{@post.id}", style: "opacity: 0; visibility: hidden;" %>
+                    </div>
+                <% end %>
+            <% end %>
         </div>
       </div>
-    </div>
-    <% @post.responses.each_with_index do |response, index| %>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card mb-3">
-            <div class="card-header small d-flex justify-content-between">
-              <span>回答<%= sprintf("%04d", index + 1) %></span>
-              <span>投稿者名: <%= response.user.nickname if response&.user %></span>
-              <span>投稿日時: <%= l(response.created_at, format: :long) if response.created_at.present? %></span>
-            </div>
-            <div class="card-body">
-              <p class="card-text"><%= response.body %></p>
-            </div>
-            <div class="card-footer text-muted small d-flex justify-content-between">
-              <div>
-                <% if user_signed_in? %>
-                  <span id="like-button-response-<%= response.id %>">
-                    <% response_like = response.response_likes.find_by(user: current_user) %>
-                    <% if response_like.present? %>
-                      <%= link_to 'いいねをキャンセル', response_response_like_path(response_id: response.id, id: response_like.id), method: :delete, remote: true, class: 'btn custom-like-btn small-font', data: { response_id: response.id, like_id: response_like.id } %>
-                    <% else %>
-                      <%= link_to '❤️ いいね', response_response_likes_path(response_id: response.id), method: :post, remote: true, class: 'btn custom-like-btn small-font', data: { response_id: response.id } %>
-                    <% end %>
-                  </span>
-                  <span id="like-count-response-<%= response.id %>" class="ml-0"><%= response.response_likes.count %></span>
-                <% end %>
+      <% @post.responses.each_with_index do |response, index| %>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card mb-3">
+              <div class="card-header small d-flex justify-content-between">
+                <span>回答<%= sprintf("%04d", index + 1) %></span>
+                <span>投稿者名: <%= response.user.nickname if response&.user %></span>
+                <span>投稿日時: <%= l(response.created_at, format: :long) if response.created_at.present? %></span>
               </div>
-          
-              <div>
+              <div class="card-body">
+                <p class="card-text"><%= response.body %></p>
+              </div>
+              <div class="card-footer text-muted small d-flex justify-content-between">
+                <div>
+                  <% if user_signed_in? %>
+                    <span id="like-button-response-<%= response.id %>">
+                      <% response_like = response.response_likes.find_by(user: current_user) %>
+                      <% if response_like.present? %>
+                        <%= link_to 'いいねをキャンセル', response_response_like_path(response_id: response.id, id: response_like.id), method: :delete, remote: true, class: 'btn custom-like-btn small-font', data: { response_id: response.id, like_id: response_like.id } %>
+                      <% else %>
+                        <%= link_to '❤️ いいね', response_response_likes_path(response_id: response.id), method: :post, remote: true, class: 'btn custom-like-btn small-font', data: { response_id: response.id } %>
+                      <% end %>
+                    </span>
+                    <span id="like-count-response-<%= response.id %>" class="ml-0"><%= response.response_likes.count %></span>
+                  <% end %>
+                </div>
+      
+                <div>
+                  <% if current_user %>
+                    <button id="notify-admin-btn-<%= response.id %>" class="btn custom-notify-btn small-font" data-response-id="<%= response.id %>">管理者に通知</button>
+                  <% end %>
+                </div>
+      
+                <div>
+                  <% if current_user&.admin? %>
+                    <%= link_to '回答を削除する', post_response_path(@post, response), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger small-font" %>
+                  <% end %>
+                  <div class="d-flex">
+                    <% if current_user %>
+                      <%= link_to '回答する', new_post_response_path(@post), class: "btn custom-answer-btn small-font align-items-center" %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="center-container" style="display: flex; justify-content: center;">
                 <% if current_user %>
-                  <%= form_with(url: notifications_path, local: false, id: "notification-form-#{response.id}", style: "display: none;") do |form| %>
+                  <%= form_with(url: notifications_path, local: false, id: "notification-form-#{response.id}", style: "opacity: 0; visibility: hidden; width: fit-content;") do |form| %>
                     <%= form.hidden_field :user_id, value: current_user.id %>
-                    <%= form.hidden_field :post_id, value: @post.id %>
-                    <div id="comment-section-#{response.id}" style: "display: none;">
-                      <%= form.text_area :comment, id: "comment" %>
-                      <%= form.submit "通知する", class: "btn custom-notify-btn small-font", id: "submit-btn-#{response.id}", style: "display: none;" %>
+                    <%= form.hidden_field :response_id, id: "response-id-field-#{response.id}" %>
+                    
+                    <div id="comment-section-<%= response.id %>" style="opacity: 0; visibility: hidden;" class="d-flex flex-row align-items-center">
+                      <%= form.text_area :comment, id: "comment-#{response.id}", style: "margin-right: 10px;" %>
+                      <%= form.submit "通知する", class: "btn custom-notify-btn small-font", id: "submit-btn-#{response.id}", style: "opacity: 0; visibility: hidden;" %>
                     </div>
                   <% end %>
-                  <button id="notify-admin-btn-#{response.id}" class="btn custom-notify-btn small-font" data-post-id="<%= response.id %>">管理者に通知</button>
                 <% end %>
               </div>
-
-              <% if current_user&.admin? %>
-                <%= link_to '投稿を削除する', post_response_path(@post, response), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger small-font" %>
-              <% end %>
-            
-              <%= link_to '回答する', new_post_response_path(@post), class: "btn custom-answer-btn small-font" %>
-            </div>              
+            </div>
           </div>
         </div>
-      </div>
-    <% end %>
-  </div>
+      <% end %>
+      
   <div class="d-flex justify-content-center" style="padding-bottom: 15px;">
     <%= link_to '戻る', posts_path, class: 'btn', style: 'background-color: #d3d3d3; font-size: 0.8em;'  %>
   </div>

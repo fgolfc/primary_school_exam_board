@@ -3,6 +3,7 @@ require 'spec_helper'
 require 'capybara/email/rspec'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
+require 'capybara/rspec'
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
@@ -64,8 +65,12 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   config.include Devise::Test::IntegrationHelpers, type: :system
+
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
 end
-Capybara.javascript_driver = :selenium
+Capybara.javascript_driver = :rack_test
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|

@@ -1,53 +1,66 @@
 document.addEventListener('turbolinks:load', function() {
   const responseNotifyAdminButtons = document.querySelectorAll('[data-response-id]');
 
+  function hideElement(el) {
+      el.style.opacity = '0';
+      el.style.visibility = 'hidden';
+  }
+
+  function showElement(el) {
+      el.style.opacity = '1';
+      el.style.visibility = 'visible';
+  }
+
   responseNotifyAdminButtons.forEach((notifyAdminButton) => {
       const responseId = notifyAdminButton.getAttribute('data-response-id');
 
-      // ここでresponseのpost_idを取得します
-      const hiddenPostIdField = document.getElementById(`post-id-field-${responseId}`);
-      const postIdValue = hiddenPostIdField ? hiddenPostIdField.value : null;
-      
       if (!notifyAdminButton.dataset.listenerAdded) {
           notifyAdminButton.dataset.listenerAdded = 'true'; 
 
           notifyAdminButton.addEventListener('click', function(event) {
-              notifyAdminButton.style.display = 'none';
-
+              hideElement(notifyAdminButton);
+              
               const responseNotificationForm = document.getElementById(`notification-form-${responseId}`);
               const commentSection = document.getElementById(`comment-section-${responseId}`);
               const submitButton = document.getElementById(`submit-btn-${responseId}`);
               const hiddenResponseIdField = document.getElementById(`response-id-field-${responseId}`);
+              const centerContainer = document.querySelector('.center-container');
 
-              if (hiddenResponseIdField && postIdValue) {
+              if (hiddenResponseIdField) {
                   hiddenResponseIdField.value = responseId;
-                  // ここでpost_idのhidden fieldの値をセットします
-                  hiddenPostIdField.value = postIdValue;
               } else {
-                  console.error(`Element with ID response-id-field-${responseId} or post-id-field-${responseId} not found.`);
+                  console.error(`Element with ID response-id-field-${responseId} not found.`);
                   return;
               }
+              
+              showElement(responseNotificationForm);
+              showElement(commentSection);
+              showElement(submitButton);
 
-              responseNotificationForm.style.display = 'block';
-              commentSection.style.display = 'block';
-              submitButton.style.display = 'block';
+              if (centerContainer) {
+                  centerContainer.style.height = 'auto';
+              }
 
               if (!responseNotificationForm.dataset.listenerAdded) {
                   responseNotificationForm.dataset.listenerAdded = 'true';
 
                   responseNotificationForm.addEventListener('ajax:success', function() {
                       alert("通知が成功しました");
-                      responseNotificationForm.style.display = 'none';
-                      commentSection.style.display = 'none';
-                      submitButton.style.display = 'none';
-                      notifyAdminButton.style.display = 'block';
+                      hideElement(responseNotificationForm);
+                      hideElement(commentSection);
+                      hideElement(submitButton);
+                      showElement(notifyAdminButton);
+
+                      if (centerContainer) {
+                          centerContainer.style.height = '0';
+                      }
                   });
 
                   responseNotificationForm.addEventListener('ajax:error', function(event) {
                       const detail = event.detail;
                       const errorMessages = detail[0]['errors'] || [];
                       alert(errorMessages.join(", "));
-                      notifyAdminButton.style.display = 'block';
+                      showElement(notifyAdminButton);
                   });
               }
           });
