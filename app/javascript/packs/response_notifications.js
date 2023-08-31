@@ -20,11 +20,11 @@ document.addEventListener('turbolinks:load', function() {
             notifyAdminButton.addEventListener('click', function(event) {
                 hideElement(notifyAdminButton);
                 
+                const centerContainer = document.getElementById(`center-container-${responseId}`);
                 const responseNotificationForm = document.getElementById(`notification-form-${responseId}`);
                 const commentSection = document.getElementById(`comment-section-${responseId}`);
                 const submitButton = document.getElementById(`submit-btn-${responseId}`);
                 const hiddenResponseIdField = document.getElementById(`response-id-field-${responseId}`);
-                const centerContainer = document.querySelector('.center-container');
 
                 if (hiddenResponseIdField) {
                     hiddenResponseIdField.value = responseId;
@@ -38,10 +38,9 @@ document.addEventListener('turbolinks:load', function() {
                 showElement(submitButton);
 
                 if (centerContainer) {
-                    centerContainer.style.height = 'auto';
+                    centerContainer.style.height = 'auto'; // Set the container height to fit the content
                 }
 
-                // 条件文を削除し、直接イベントリスナを追加
                 responseNotificationForm.addEventListener('ajax:success', function() {
                     alert("通知が成功しました");
                     hideElement(responseNotificationForm);
@@ -50,7 +49,7 @@ document.addEventListener('turbolinks:load', function() {
                     showElement(notifyAdminButton);
 
                     if (centerContainer) {
-                        centerContainer.style.height = '0';
+                        centerContainer.style.height = '0'; // Hide the container by setting its height to 0
                     }
                 });
 

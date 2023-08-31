@@ -18,13 +18,12 @@ document.addEventListener('turbolinks:load', function() {
             notifyAdminButton.dataset.listenerAdded = 'true'; 
 
             notifyAdminButton.addEventListener('click', function(event) {
-                hideElement(notifyAdminButton);
+                const centerContainer = document.querySelector(`#notification-form-${postId}`).closest('.center-container');
                 
                 const notificationForm = document.getElementById(`notification-form-${postId}`);
                 const commentSection = document.getElementById(`comment-section-${postId}`);
                 const submitButton = document.getElementById(`submit-btn-${postId}`);
                 const hiddenPostIdField = document.getElementById(`post-id-field-${postId}`);
-                const centerContainer = document.querySelector('.center-container');
 
                 if (hiddenPostIdField) {
                     hiddenPostIdField.value = postId;
@@ -32,38 +31,37 @@ document.addEventListener('turbolinks:load', function() {
                     console.error(`Element with ID post-id-field-${postId} not found.`);
                     return;
                 }
-                if (!notificationForm || !commentSection || !submitButton) {
-                    console.error("Some elements are missing!");
-                    return;
+
+                if (!notificationForm.dataset.listenerAdded) {
+                    notificationForm.dataset.listenerAdded = 'true';
+                    
+                    notificationForm.addEventListener('ajax:success', function() {
+                        alert("通知が成功しました");
+                        hideElement(notificationForm);
+                        hideElement(commentSection);
+                        hideElement(submitButton);
+                        hideElement(notifyAdminButton); // 通知成功時にボタンを非表示にする
+                        if (centerContainer) {
+                            centerContainer.style.height = '0';
+                        }
+                    });
+
+                    notificationForm.addEventListener('ajax:error', function(event) {
+                        const detail = event.detail;
+                        const errorMessages = detail[0]['errors'] || [];
+                        alert(errorMessages.join(", "));
+                        showElement(notifyAdminButton);
+                    });
                 }
+
                 showElement(notificationForm);
                 showElement(commentSection);
                 showElement(submitButton);
+                hideElement(notifyAdminButton); // ボタンをクリックしたときにボタン自体を非表示にする
 
-                // ここを追加: center-containerの高さをautoに設定
                 if (centerContainer) {
                     centerContainer.style.height = 'auto';
                 }
-
-                notificationForm.addEventListener('ajax:success', function() {
-                    alert("通知が成功しました");
-                    hideElement(notificationForm);
-                    hideElement(commentSection);
-                    hideElement(submitButton);
-                    showElement(notifyAdminButton);
-
-                    // ここを追加: center-containerの高さを0に設定
-                    if (centerContainer) {
-                        centerContainer.style.height = '0';
-                    }
-                });
-
-                notificationForm.addEventListener('ajax:error', function(event) {
-                    const detail = event.detail;
-                    const errorMessages = detail[0]['errors'] || [];
-                    alert(errorMessages.join(", "));
-                    showElement(notifyAdminButton);
-                });
             });
         }
     });

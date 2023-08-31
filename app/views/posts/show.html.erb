@@ -116,18 +116,18 @@
                 </div>
               </div>
       
-              <div class="center-container" style="display: flex; justify-content: center;">
-                <% if current_user %>
-                  <%= form_with(url: notifications_path, local: false, id: "notification-form-#{response.id}", style: "opacity: 0; visibility: hidden; width: fit-content;") do |form| %>
-                    <%= form.hidden_field :user_id, value: current_user.id %>
-                    <%= form.hidden_field :response_id, id: "response-id-field-#{response.id}" %>
-                    
-                    <div id="comment-section-<%= response.id %>" style="opacity: 0; visibility: hidden;" class="d-flex flex-row align-items-center">
-                      <%= form.text_area :comment, id: "comment-#{response.id}", style: "margin-right: 10px;" %>
-                      <%= form.submit "通知する", class: "btn custom-notify-btn small-font", id: "submit-btn-#{response.id}", style: "opacity: 0; visibility: hidden;" %>
-                    </div>
+              <div class="center-container" id="center-container-<%= response.id %>" style="display: flex; justify-content: center;">
+                  <% if current_user %>
+                      <%= form_with(url: notifications_path, local: false, id: "notification-form-#{response.id}", style: "opacity: 0; visibility: hidden; width: fit-content;") do |form| %>
+                          <%= form.hidden_field :user_id, value: current_user.id %>
+                          <%= form.hidden_field :response_id, id: "response-id-field-#{response.id}" %>
+                          
+                          <div id="comment-section-<%= response.id %>" style="opacity: 0; visibility: hidden;" class="d-flex flex-row align-items-center">
+                              <%= form.text_area :comment, id: "comment", style: "margin-right: 10px;" %>
+                              <%= form.submit "通知する", class: "btn custom-notify-btn small-font", id: "submit-btn-#{response.id}", style: "opacity: 0; visibility: hidden;" %>
+                          </div>
+                      <% end %>
                   <% end %>
-                <% end %>
               </div>
             </div>
           </div>
