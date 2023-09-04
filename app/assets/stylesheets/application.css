@@ -51,6 +51,11 @@
   color: #ffffff; /* Black text */
 }
 
+.btn.custom-notify-response-btn {
+  background-color: #9a9a9a; /* Light red */
+  color: #ffffff; /* Black text */
+}
+
 .btn.custom-answer-btn {
   background-color: #ffc0cb; /* Light pink */
   color: #000; /* Black text */
@@ -135,3 +140,4 @@
   overflow: hidden;
   transition: height 0.3s ease; /* オプション: アニメーション効果を追加 */
 }
+

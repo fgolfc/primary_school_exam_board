@@ -1,6 +1,7 @@
 <div class="container">
   <div class="col-md-12">
-    <h6 class="card-title" style="border-bottom: 1px solid rgba(255, 145, 145, 0.5);"><span>質問<%= sprintf("%04d", @post.id) %> : </span><%= @post.title %></h6>
+    <h6 class="card-title" style="border-bottom: 1px solid rgba(255, 145, 145, 0.5);">
+      <span>質問<%= sprintf("%04d", @post.id) %> : </span><%= @post.title %></h6>
     <div class="row">
       <div class="col-md-12">
         <div class="card mb-3">
@@ -57,20 +58,8 @@
                 <% end %>
             <% end %>
         </div>
-        <div class="center-container" style="display: flex; justify-content: center;">
-            <% if current_user %>
-                <%= form_with(url: notifications_path, local: false, id: "notification-form-#{@post.id}", style: "opacity: 0; visibility: hidden; width: fit-content;") do |form| %>
-                    <%= form.hidden_field :user_id, value: current_user.id %>
-                    <%= form.hidden_field :post_id, id: "post-id-field-#{@post.id}" %>
-                    
-                    <div id="comment-section-<%= @post.id %>" style="opacity: 0; visibility: hidden;" class="d-flex flex-row align-items-center">
-                        <%= form.text_area :comment, id: "comment", style: "margin-right: 10px;" %>
-                        <%= form.submit "通知する", class: "btn custom-notify-btn small-font", id: "submit-btn-#{@post.id}", style: "opacity: 0; visibility: hidden;" %>
-                    </div>
-                <% end %>
-            <% end %>
-        </div>
       </div>
+
       <% @post.responses.each_with_index do |response, index| %>
         <div class="row">
           <div class="col-md-12">
@@ -87,7 +76,7 @@
                 <div>
                   <% if user_signed_in? %>
                     <span id="like-button-response-<%= response.id %>">
-                      <% response_like = response.response_likes.find_by(user: current_user) %>
+                      <% response_like = current_user.response_likes.find_by(response: response) %>
                       <% if response_like.present? %>
                         <%= link_to 'いいねをキャンセル', response_response_like_path(response_id: response.id, id: response_like.id), method: :delete, remote: true, class: 'btn custom-like-btn small-font', data: { response_id: response.id, like_id: response_like.id } %>
                       <% else %>
@@ -100,7 +89,7 @@
       
                 <div>
                   <% if current_user %>
-                    <button id="notify-admin-btn-<%= response.id %>" class="btn custom-notify-btn small-font" data-response-id="<%= response.id %>">管理者に通知</button>
+                    <button id="notify-admin-btn-<%= response.id %>" class="btn custom-notify-response-btn small-font" data-response-id="<%= response.id %>">管理者に通知</button>
                   <% end %>
                 </div>
       
@@ -116,25 +105,28 @@
                 </div>
               </div>
       
-              <div class="center-container" id="center-container-<%= response.id %>" style="display: flex; justify-content: center;">
-                  <% if current_user %>
-                      <%= form_with(url: notifications_path, local: false, id: "notification-form-#{response.id}", style: "opacity: 0; visibility: hidden; width: fit-content;") do |form| %>
-                          <%= form.hidden_field :user_id, value: current_user.id %>
-                          <%= form.hidden_field :response_id, id: "response-id-field-#{response.id}" %>
-                          
-                          <div id="comment-section-<%= response.id %>" style="opacity: 0; visibility: hidden;" class="d-flex flex-row align-items-center">
-                              <%= form.text_area :comment, id: "comment", style: "margin-right: 10px;" %>
-                              <%= form.submit "通知する", class: "btn custom-notify-btn small-font", id: "submit-btn-#{response.id}", style: "opacity: 0; visibility: hidden;" %>
-                          </div>
-                      <% end %>
+              <div class="center-container" id="js-ResponseFormArea-<%= response.id %>" style="display: flex; justify-content: center;">
+                <% if current_user %>
+                  <%= form_with(url: notifications_path, local: false, id: "notification-form-#{response.id}", style: "opacity: 0; visibility: hidden; width: fit-content;") do |form| %>
+                    <%= form.hidden_field :user_id, value: current_user.id %>
+                    <%= form.hidden_field :response_id, id: "response-id-field-#{response.id}" %>
+                    
+                    <div id="comment-section-<%= response.id %>" style="opacity: 0; visibility: hidden;" class="d-flex flex-row align-items-center">
+                      <%= form.text_area :comment, id: "comment-#{response.id}", style: "margin-right: 10px;" %>
+                      <%= form.submit "通知する", class: "btn custom-notify-btn small-font", id: "submit-btn-#{response.id}", style: "opacity: 0; visibility: hidden;" %>
+                    </div>
                   <% end %>
+                <% end %>
               </div>
             </div>
           </div>
         </div>
       <% end %>
       
-  <div class="d-flex justify-content-center" style="padding-bottom: 15px;">
-    <%= link_to '戻る', posts_path, class: 'btn', style: 'background-color: #d3d3d3; font-size: 0.8em;'  %>
+        <div class="d-flex justify-content-center" style="padding-bottom: 15px;">
+          <%= link_to '戻る', posts_path, class: 'btn', style: 'background-color: #d3d3d3; font-size: 0.8em;'  %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

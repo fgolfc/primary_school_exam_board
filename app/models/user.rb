@@ -12,7 +12,7 @@ class User < ApplicationRecord
   has_many :notifications, dependent: :destroy
   
   def prefecture_i18n
-    result = I18n.t("activerecord.attributes.user.prefectures.#{prefecture}")
+    I18n.t("activerecord.attributes.user.prefectures.#{prefecture}")
   end
 
   rails_admin do

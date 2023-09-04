@@ -1,5 +1,6 @@
 document.addEventListener('turbolinks:load', function() {
-    const notifyAdminButtons = document.querySelectorAll('[data-post-id]');
+    // const notifyAdminButtons = document.querySelectorAll('[data-post-id]');
+    const notifyAdminButtons = document.querySelectorAll('.custom-notify-btn');
     
     function hideElement(el) {
         el.style.opacity = '0';

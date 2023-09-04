@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "Users", type: :system do
-  let(:user) { create(:user) }
-  let(:admin) { create(:user, admin: true) }
-  let(:other_user) { create(:user) }
+  let!(:user) { create(:user) }
+  let!(:admin) { create(:user, admin: true) }
+  let!(:other_user) { create(:user) }
 
   before do
     ActionMailer::Base.deliveries.clear

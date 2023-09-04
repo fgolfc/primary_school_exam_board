@@ -13,9 +13,7 @@ RSpec.describe "Posts", type: :system do
     it 'deletes the post successfully' do
       expect(page).to have_link('投稿を削除する')
 
-      accept_confirm do
-        click_link '投稿を削除する'
-      end
+      click_link '投稿を削除する'
 
       expect(page).to have_content('Post was successfully destroyed.')
       expect(Post.exists?(post.id)).to be_falsey

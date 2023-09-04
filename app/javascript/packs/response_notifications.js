@@ -1,5 +1,6 @@
 document.addEventListener('turbolinks:load', function() {
-    const responseNotifyAdminButtons = document.querySelectorAll('[data-response-id]');
+    // const responseNotifyAdminButtons = document.querySelectorAll('[data-response-id]');
+    const responseNotifyAdminButtons = document.querySelectorAll('.custom-notify-response-btn');
 
     function hideElement(el) {
         el.style.opacity = '0';
@@ -20,11 +21,15 @@ document.addEventListener('turbolinks:load', function() {
             notifyAdminButton.addEventListener('click', function(event) {
                 hideElement(notifyAdminButton);
                 
-                const centerContainer = document.getElementById(`center-container-${responseId}`);
-                const responseNotificationForm = document.getElementById(`notification-form-${responseId}`);
-                const commentSection = document.getElementById(`comment-section-${responseId}`);
-                const submitButton = document.getElementById(`submit-btn-${responseId}`);
-                const hiddenResponseIdField = document.getElementById(`response-id-field-${responseId}`);
+                // #js-ResponseFormArea
+                // document.getElementById("js-ResponseFormArea");
+
+                const centerContainer = document.getElementById(`js-ResponseFormArea-${responseId}`);
+
+                const responseNotificationForm = centerContainer.querySelector(`#notification-form-${responseId}`)
+                const commentSection = centerContainer.querySelector(`#comment-section-${responseId}`);
+                const submitButton = centerContainer.querySelector(`#submit-btn-${responseId}`);
+                const hiddenResponseIdField = centerContainer.querySelector(`#response-id-field-${responseId}`);
 
                 if (hiddenResponseIdField) {
                     hiddenResponseIdField.value = responseId;

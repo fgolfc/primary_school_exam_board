@@ -8,8 +8,9 @@ class Response < ApplicationRecord
   private
 
   def author_cannot_respond
+    return unless post  # postがnilなら以降の処理をスキップ
     if user_id == post.user_id
       errors.add(:base, "質問者は回答できません。")
     end
-  end
+  end  
 end
