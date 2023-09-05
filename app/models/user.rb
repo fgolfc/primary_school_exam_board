@@ -10,10 +10,6 @@ class User < ApplicationRecord
   has_many :post_likes
   has_many :response_likes
   has_many :notifications, dependent: :destroy
-  
-  def prefecture_i18n
-    I18n.t("activerecord.attributes.user.prefectures.#{prefecture}")
-  end
 
   rails_admin do
     list do
@@ -56,5 +52,9 @@ class User < ApplicationRecord
     ibaraki: 31,
     others: 32
   }
+
+  def prefecture_i18n
+    I18n.t("activerecord.attributes.user.prefectures.#{prefecture}")
+  end
 end
 

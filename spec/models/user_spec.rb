@@ -21,9 +21,6 @@ RSpec.describe User, type: :model do
     let(:user) { build(:user, prefecture: :tokyo_chuoku) }
 
     it 'returns the localized name for the prefecture' do
-      puts "Current Locale: #{I18n.locale}"
-      puts "Localized value from I18n: #{I18n.t("activerecord.attributes.user.prefectures.tokyo_chuoku")}"
-      puts "Value from prefecture_i18n: #{user.prefecture_i18n}"
       expect(user.prefecture_i18n).to eq(I18n.t("activerecord.attributes.user.prefectures.tokyo_chuoku"))
     end
   end

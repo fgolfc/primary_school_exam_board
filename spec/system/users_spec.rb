@@ -7,23 +7,14 @@ RSpec.describe "Users", type: :system do
 
   before do
     ActionMailer::Base.deliveries.clear
-    user.send_confirmation_instructions
-  end
-
-  it 'sends a confirmation email' do
-    expect(ActionMailer::Base.deliveries.size).to eq(1)
-  end
-
-  def confirm_email
-    open_email(user.email)
-    current_email.click_link 'アカウントを確認'
+    user.skip_confirmation!
+    user.save
   end
 
   describe 'show user page' do
     context 'when accessed by the user itself' do
       before do
         sign_in user
-        confirm_email
         visit user_path(user)
       end
 

@@ -1,13 +1,7 @@
 FactoryBot.define do
   factory :user do
-    sequence(:nickname) do |n|
-      raise "User number limit exceeded!" if n > 50
-      "user#{100 + n}"
-    end
-    sequence(:email) do |n|
-      raise "Email limit exceeded!" if n > 50
-      "user#{100 + n}@test.com"
-    end
+    sequence(:nickname) { |n| "user#{100 + n}" }
+    sequence(:email) { |n| "user#{100 + n}@test.com" }
     password { "password" }
     prefecture { :tokyo_chuoku }
     confirmed_at { Time.now }
