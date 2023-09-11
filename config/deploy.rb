@@ -3,12 +3,30 @@ lock "~> 3.17.3"
 
 set :application, "primary_school_exam_board"
 set :repo_url, "https://github.com/fgolfc/primary_school_exam_board.git"
-set :bundle_without, %w{test}.join(':')
+set :bundle_without, "test"
+set :linked_files, %w{config/master.key config/secrets.yml}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets public/uploads}
+set :keep_releases, 5
+set :rbenv_ruby, '3.0.1'
+set :log_level, :info 
+after 'deploy:finished', 'deploy:restart'
 
-set :rbenv_version, '3.0.1'
-
-append :linked_files, 'config/secrets.yml'
-
+# namespace :deploy do
+#   desc 'Run seed'
+#   task :seed do
+#     on roles(:db) do
+#       with rails_env: fetch(:rails_env) do
+#         within current_path do
+#           execute :bundle, :exec, :rake, 'db:seed'
+#         end
+#       end
+#     end
+#   end
+#   desc 'Restart application'
+#   task :restart do
+#     invoke 'unicorn:restart'
+#   end
+# end
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
