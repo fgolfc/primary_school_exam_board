@@ -37,6 +37,7 @@ gem 'rails_admin', '~> 3.0'
 gem 'counter_culture'
 gem 'sendgrid-ruby'
 gem 'dotenv-rails'
+gem 'unicorn'
 
 
 group :development, :test do
@@ -59,6 +60,7 @@ group :development do
   gem "capistrano-rails", "~> 1.6", require: false
   gem 'capistrano-safe-deploy-to'
   gem 'capistrano-rbenv', '~> 2.2'
+  gem 'capistrano3-unicorn'
 end
 
 group :test do
