@@ -12,7 +12,7 @@ class AddConfirmableToDevise < ActiveRecord::Migration[6.0]
   end
 
   def down
-    rremove_index :users, :confirmation_token
+    remove_index :users, :confirmation_token
     remove_columns :users, :confirmation_token, :confirmed_at, :confirmation_sent_at
     remove_columns :users, :unconfirmed_email
   end
