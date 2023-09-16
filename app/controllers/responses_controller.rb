@@ -54,15 +54,8 @@ class ResponsesController < ApplicationController
   def destroy
     @response = Response.find(params[:id])
     @post = @response.post
-  
-    if @post.nil?
-      # ここでエラーハンドリング。例えば、root_pathにリダイレクトさせる。
-      redirect_to root_url, alert: "Post not found."
-      return
-    end
-  
     @response.destroy
-  
+
     respond_to do |format|
       format.html { redirect_to post_url(@post), notice: "Response was successfully destroyed." }
       format.json { head :no_content }
