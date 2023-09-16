@@ -52,15 +52,22 @@ class ResponsesController < ApplicationController
 
   # DELETE /responses/1 or /responses/1.json
   def destroy
-    @response = Response.find(params[:id])
-    @post = @response.post
-    @response.destroy
+  @response = Response.find(params[:id])
+  @post = @response.post
 
-    respond_to do |format|
-      format.html { redirect_to post_url(@post), notice: "Response was successfully destroyed." }
-      format.json { head :no_content }
-    end
+  if @post.nil?
+    # ここでエラーハンドリング。例えば、root_pathにリダイレクトさせる。
+    redirect_to root_url, alert: "Post not found."
+    return
   end
+
+  @response.destroy
+
+  respond_to do |format|
+    format.html { redirect_to post_url(@post), notice: "Response was successfully destroyed." }
+    format.json { head :no_content }
+  end
+end
 
   private
     # Use callbacks to share common setup or constraints between actions.
