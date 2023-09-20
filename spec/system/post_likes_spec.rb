@@ -8,7 +8,7 @@ RSpec.describe 'PostLikes', type: :system, js: true do
   before do
     driven_by(:selenium_chrome)
     sign_in user
-    visit posts_path # ここを変更して、投稿一覧ページに移動します
+    visit posts_path 
   end
 
   describe 'liking a post' do
