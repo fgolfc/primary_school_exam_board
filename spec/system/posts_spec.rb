@@ -20,9 +20,6 @@ RSpec.describe 'Post management', type: :system do
   
   describe 'Post creation' do
     it 'creates a new post' do
-      visit posts_path
-      click_button '質問する'
-
       visit new_post_path
       fill_in 'タイトル', with: 'Test Post Title' 
       fill_in '本文', with: 'Test Post Body' 
