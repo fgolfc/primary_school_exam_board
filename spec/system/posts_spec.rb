@@ -21,8 +21,8 @@ RSpec.describe 'Post management', type: :system do
   describe 'Post creation' do
     it 'creates a new post' do
       visit new_post_path
-      fill_in 'タイトル', with: 'Test Post Title' 
-      fill_in '本文', with: 'Test Post Body' 
+      fill_in 'post_title', with: 'Test Post Title' 
+      fill_in 'post_body', with: 'Test Post Body' 
       click_button '投稿する' 
       expect(page).to have_content('Test Post Title')
       expect(page).to have_content('Test Post Body')
