@@ -59,3 +59,4 @@ server "54.249.195.174",
     auth_methods: %w(publickey password)
     # password: "please use keys"
   }
+

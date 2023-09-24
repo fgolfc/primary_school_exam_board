@@ -5,6 +5,7 @@ set :application, "primary_school_exam_board"
 set :repo_url, "https://github.com/fgolfc/primary_school_exam_board.git"
 set :bundle_without, "test"
 set :linked_files, %w(config/master.key)
+append :linked_files, 'config/secrets.yml'
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets public/uploads vendor/bundle public/system}  # log, tmp/pids, tmp/cache, tmp/sockets は既に含まれている
 set :keep_releases, 5
 set :rbenv_ruby, '3.0.1'
