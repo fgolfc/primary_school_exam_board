@@ -141,3 +141,8 @@
   transition: height 0.3s ease; /* オプション: アニメーション効果を追加 */
 }
 
+.btn-guest-login {
+  background-color: lightgray !important; /* 薄いグレーの背景色 */
+  color: black !important; /* 文字色を黒に */
+}
+
