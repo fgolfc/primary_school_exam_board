@@ -10,6 +10,7 @@ set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets public/uploads vendor/bu
 set :keep_releases, 2
 set :rbenv_ruby, '3.0.1'
 set :log_level, :info 
+set :config_files, %w(config/application.rb)
 after 'deploy:finished', 'deploy:restart'
 
 namespace :deploy do
