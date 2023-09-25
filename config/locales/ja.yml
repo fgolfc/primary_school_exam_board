@@ -93,6 +93,8 @@ ja:
           attributes:
             post:
               required: "必要な属性です"
+        messages:
+          record_invalid: "バリデーションに失敗しました: %{errors}"
     full_messages:
         format: "%{message}"
   helpers:

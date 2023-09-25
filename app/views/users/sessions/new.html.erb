@@ -35,5 +35,9 @@
         <%= f.submit "ログイン", class: 'btn btn-custom', style: 'background-color: #ffcccc;' %>
       </div>
     <% end %>
+
+    <div class="mt-3 d-flex justify-content-center">
+      <%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, method: :post, class: 'btn btn-secondary' %>
+    </div>
   </div>
 </div>

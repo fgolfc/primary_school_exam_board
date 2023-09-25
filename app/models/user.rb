@@ -18,6 +18,15 @@ class User < ApplicationRecord
     end
   end
 
+  def self.guest
+    find_or_create_by!(email: 'guest@example.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.confirmed_at = Time.now
+      user.nickname = "ゲスト"
+      user.prefecture = :tokyo_chuoku
+    end
+  end  
+
   enum prefecture: {
     tokyo_chuoku: 1, 
     tokyo_chiyodaku: 2, 
