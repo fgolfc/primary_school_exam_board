@@ -35,15 +35,5 @@
         <%= f.submit "ログイン", class: 'btn btn-custom', style: 'background-color: #ffcccc;' %>
       </div>
     <% end %>
-
-    <div class="text-center mt-3">
-      <%= link_to "ゲストログイン", new_session_path(:user, email: 'guest@example.com', password: 'password'), class: "btn btn-outline-secondary" %>
-    </div>
-
-    <% if current_user&.admin? %>
-      <div class="text-center mt-3">
-        <%= link_to "管理者ログイン", new_admin_session_path, class: "btn btn-outline-secondary" %>
-      </div>
-    <% end %>
   </div>
 </div>
