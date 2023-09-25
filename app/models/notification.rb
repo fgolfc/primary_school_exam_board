@@ -5,11 +5,11 @@ class Notification < ApplicationRecord
   belongs_to :post, optional: true
   belongs_to :response, optional: true
 
-  after_create :send_email_to_admin
+  # after_create :send_email_to_admin
 
-  private
+  # private
 
-  def send_email_to_admin
-    NotificationMailer.notify_admin(self).deliver_later
-  end
+  # def send_email_to_admin
+  #   NotificationMailer.notify_admin(self).deliver_later
+  # end
 end
