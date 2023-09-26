@@ -38,7 +38,7 @@ gem 'counter_culture'
 gem 'sendgrid-ruby'
 gem 'dotenv-rails'
 gem 'unicorn'
-
+gem 'i18n-tasks'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

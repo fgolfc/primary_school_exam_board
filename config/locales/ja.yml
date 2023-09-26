@@ -73,6 +73,8 @@ ja:
     models:
       user: ユーザー
     errors:
+      messages:
+        record_invalid: "正しくありません。"
       models:
         user:
           attributes:

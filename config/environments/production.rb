@@ -1,3 +1,5 @@
+require 'dotenv/rails'
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -74,21 +76,6 @@ Rails.application.configure do
     authentication: :plain,
     enable_starttls_auto: true
   }
-
-  # 管理者ユーザーのメールアドレス
-  ENV['ADMIN_EMAIL'] = 'adminadmin@example.com'
-  # 管理者ユーザーのパスワード
-  ENV['ADMIN_PASSWORD'] = 'password'
-
-  # 一般ユーザーのメールアドレス
-  ENV['USER1_EMAIL'] = 'motheruser1@example.com'
-  # 一般ユーザーのパスワード
-  ENV['USER1_PASSWORD'] = 'password'
-
-  # 一般ユーザーのメールアドレス
-  ENV['USER2_EMAIL'] = 'motheruser2@example.com'
-  # 一般ユーザーのパスワード
-  ENV['USER2_PASSWORD'] = 'password'
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
