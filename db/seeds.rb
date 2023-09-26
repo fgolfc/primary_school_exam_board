@@ -8,9 +8,9 @@
 
 # 管理者ユーザーを作成
 admin = User.create!(
-  email: ENV['ADMIN_EMAIL'],
-  password: ENV['ADMIN_PASSWORD'],
-  password_confirmation: ENV['ADMIN_PASSWORD'],
+  email: ENV.fetch('ADMIN_EMAIL', 'ADMIN@example.com'),
+  password: ENV.fetch('ADMIN_PASSWORD', 'password'),
+  password_confirmation: ENV.fetch('ADMIN_PASSWORD', 'password'),
   nickname: 'Admin',
   prefecture: :tokyo_chuoku,
   admin: true,
@@ -19,18 +19,18 @@ admin = User.create!(
 
 # 一般ユーザーを作成
 user1 = User.create!(
-  email: ENV['USER1_EMAIL'],
-  password: ENV['USER1_PASSWORD'],
-  password_confirmation: ENV['USER1_PASSWORD'],
+  email: 'user101@example.com',
+  password: 'password',
+  password_confirmation: 'password',
   nickname: 'User1',
   prefecture: :tokyo_shinjukuku,
   confirmed_at: Time.now
 )
 
 user2 = User.create!(
-  email: ENV['USER2_EMAIL'],
-  password: ENV['USER2_PASSWORD'],
-  password_confirmation: ENV['USER2_PASSWORD'],
+  email: 'user102@example.com',
+  password: 'password',
+  password_confirmation: 'password',
   nickname: 'User2',
   prefecture: :kanagawa,
   confirmed_at: Time.now
