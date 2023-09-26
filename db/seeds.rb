@@ -11,7 +11,7 @@ admin = User.create!(
   password: 'password',
   password_confirmation: 'password',
   nickname: 'Admin',
-  prefecture: :tokyo_chuoku
+  prefecture: :tokyo_chuoku,
   admin: true,
   confirmed_at: Time.now
 )
@@ -22,7 +22,7 @@ user1 = User.create!(
   password: 'password',
   password_confirmation: 'password',
   nickname: 'User1',
-  prefecture: :tokyo_shinjukuku
+  prefecture: :tokyo_shinjukuku,
   confirmed_at: Time.now
 )
 
@@ -31,6 +31,6 @@ user2 = User.create!(
   password: 'password',
   password_confirmation: 'password',
   nickname: 'User2',
-  prefecture: :kanagawa
+  prefecture: :kanagawa,
   confirmed_at: Time.now
 )
