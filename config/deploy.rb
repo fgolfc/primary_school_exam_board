@@ -12,6 +12,7 @@ set :rbenv_ruby, '3.0.1'
 set :log_level, :info 
 set :config_files, %w(config/application.rb)
 after 'deploy:finished', 'deploy:restart'
+after 'deploy:migrate', 'deploy:seed'
 
 namespace :deploy do
   desc 'Run seed'
