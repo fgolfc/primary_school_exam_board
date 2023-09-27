@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: primary_school_exam_board_production
-  username: pse_board
+  username: ec2_user
   password: <%= ENV['PRIMARY_SCHOOL_EXAM_BOARD_DATABASE_PASSWORD'] %>
