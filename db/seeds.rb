@@ -8,9 +8,9 @@
 
 # 管理者ユーザーを作成
 admin = User.create!(
-  email: ENV.fetch('ADMIN_EMAIL', 'ADMIN@example.com'),
-  password: ENV.fetch('ADMIN_PASSWORD', 'password'),
-  password_confirmation: ENV.fetch('ADMIN_PASSWORD', 'password'),
+  email: 'aaddmmiinn20230928@gmail.com',
+  password: 'pa$sw0rd',
+  password_confirmation: 'pa$sw0rd',
   nickname: 'Admin',
   prefecture: :tokyo_chuoku,
   admin: true,
