@@ -397,7 +397,7 @@ DEPENDENCIES
   kaminari
   letter_opener_web
   listen (~> 3.2)
-  parser (~> 3.0.0)
+  parser
   pg (>= 0.18, < 2.0)
   puma (~> 4.1)
   rails (~> 6.0.3)
