@@ -1,7 +1,17 @@
-<h1>Users</h1>
-
-<ul>
-  <% @users.each do |user| %>
-    <li><%= user.email %> - Admin: <%= user.admin? %></li>
-  <% end %>
-</ul>
+<div class="card mx-auto w-50 mb-4">
+  <div class="card-body">
+    <h5 class="mb-4 text-center"><%= t('users.title') %></h5>
+    <ul class="list-group list-group-flush">
+      <% @users.each do |user| %>
+        <li class="list-group-item">
+          <%= user.email %> - 
+          <% if user.admin? %>
+            <%= t('users.admin') %>
+          <% else %>
+            <%= t('users.not_admin') %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

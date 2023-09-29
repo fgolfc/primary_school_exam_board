@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
     get 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
   end
+  match "/404", to: "errors#not_found", via: :all
+  match "/500", to: "errors#internal_server_error", via: :all
 
   root 'posts#index'
   

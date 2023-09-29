@@ -21,5 +21,6 @@ module PrimarySchoolExamBoard
 
     config.time_zone = 'Tokyo'
     config.active_record.default_timezone = :utc
+    config.exceptions_app = self.routes
   end
 end
