@@ -30,7 +30,7 @@ Rails 6.0.6.1
     ```
 
 #カタログ設計
-https://docs.google.com/spreadsheets/d/1elLcvYP3mLpskafk_-l0IawVuYmQ9JTA50YzYSoEJ1Y/edit?usp=sharing
+https://docs.google.com/spreadsheets/d/1elLcvYP3mLpskafk_-l0IawVuYmQ9JTA50YzYSoEJ1Y/edit#gid=782464957
 
 #テーブル定義書
 https://docs.google.com/spreadsheets/d/1elLcvYP3mLpskafk_-l0IawVuYmQ9JTA50YzYSoEJ1Y/edit?usp=sharing
