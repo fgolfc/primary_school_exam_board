@@ -2,6 +2,6 @@
 
 <p>
   通告者: <%= @user ? @user.nickname : 'N/A' %><br>
-  投稿ID: <%= @notification.post ? @notification.post.title : 'N/A' %><br>
+  投稿タイトル: <%= @notification.post ? @notification.post.title : 'N/A' %><br>
   通知内容: <%= @notification.comment %>
 </p>
