@@ -3,6 +3,10 @@ class UsersController < ApplicationController
   before_action :authorize_user, only: [:show]
   before_action :authorize_admin, only: [:destroy]
 
+  def index
+    @users = User.includes(:posts, :responses).all
+  end
+
   def show
   end
 
