@@ -14,7 +14,7 @@
  *= require_self
  */
 
- .no-hover:hover {
+.no-hover:hover {
   text-decoration: none !important;
   color: inherit !important;
   outline: none !important;
@@ -27,8 +27,8 @@
   border-radius: 7px; /* 角を丸くする */
   padding: 20px 40px; /* 上下のパディングを10px、左右のパディングを20pxに設定 */
   transition: background-color 0.3s ease; /* 背景色の変化を滑らかにする */
-  margin-left: 40px;
-  width: 150px; /* ボタンの横幅を70pxに設定 */
+  margin-left: 20px;
+  width: 120px; /* ボタンの横幅を70pxに設定 */
   text-align: center; /* テキストを水平方向に中央寄せ */
   display: flex; /* フレックスコンテナとして指定 */
   justify-content: center; /* テキストを水平方向に中央寄せ（flexを使用した場合） */
@@ -130,19 +130,43 @@
 
 .pagination .page-item.disabled .page-link {
   color: rgba(255, 0, 0, 0.5); /* 薄い赤色 */
-  pointer-events: none; /* クリックやホバーなどのイベントを無効にする */
+  pointer-events: none; 
   background-color: #f5f5f5;
   border-color: #ddd;
 }
 
-.center-container {
+.center-container-top {
   height: 0;
   overflow: hidden;
-  transition: height 0.3s ease; /* オプション: アニメーション効果を追加 */
+  transition: height 0.3s ease; 
 }
 
 .btn-guest-login {
-  background-color: lightgray !important; /* 薄いグレーの背景色 */
-  color: black !important; /* 文字色を黒に */
+  background-color: lightgray !important; 
+  color: black !important; 
 }
 
+.btn.btn-top {
+  background-color: #ffa9a9;
+  border-color: #ffdede;
+  color: #000000;
+}
+
+.custom-width {
+  width: 150px;
+  margin-top: 30px;
+  margin-right: 25px;
+}
+
+.rounded-font {
+  font-family: 'MaruMoji', sans-serif; 
+}
+
+.custom-search-center {
+  display: flex;
+  margin-left: 80px;
+}
+
+.custom-card-top-bg {
+  background-color: #FFDDDD;
+}

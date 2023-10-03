@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root to: 'homes#top'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users, controllers: {
     registrations: 'users/registrations',
@@ -23,8 +24,9 @@ Rails.application.routes.draw do
   match "/404", to: "errors#not_found", via: :all
   match "/500", to: "errors#internal_server_error", via: :all
 
-  root 'posts#index'
-  
+  get 'homes/top', to: 'homes#top', as: 'homes_top'
+  get '/top', to: 'homes#top'
+
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end

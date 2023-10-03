@@ -3,17 +3,18 @@
     <h5 class="mb-4 text-center">新規ユーザー登録</h5>
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
+      
       <div class="row mb-3">
         <div class="col">
           <%= f.label :nickname, class: 'form-label' %><br />
-          <%= f.text_field :nickname, class: 'form-control' %>
+          <%= f.text_field :nickname, class: 'form-control', placeholder: "ニックネームを入力ください" %>
         </div>
       </div>
 
       <div class="row mb-3">
         <div class="col">
           <%= f.label :email, class: 'form-label' %><br />
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder: "exam@example.com" %>
         </div>
       </div>
 
@@ -30,14 +31,14 @@
           <% if @minimum_password_length %>
           <%= I18n.t("devise.passwords.minimum_password_length", count: @minimum_password_length) %>
           <% end %><br />
-          <%= f.password_field :password, autocomplete: "new-password", class: 'form-control' %>
+          <%= f.password_field :password, autocomplete: "new-password", class: 'form-control', placeholder: "パスワードを入力ください" %>
         </div>
       </div>
 
       <div class="row mb-3">
         <div class="col">
           <%= f.label :password_confirmation, class: 'form-label' %><br />
-          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control', placeholder: "確認のため、もう一度パスワードを入力ください" %>
         </div>
       </div>
 

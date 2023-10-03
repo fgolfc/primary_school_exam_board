@@ -1,0 +1,27 @@
+<div class="d-flex justify-content-center mt-5 mb-3">
+  <div class="card" style="width: 36rem; margin-bottom: 10px;">
+    <div class="card-body custom-card-top-bg">
+      <h5 class="rounded-font text-center">『小学校受験掲示板』</h5>
+      <h6 class="rounded-font text-center">都内近郊の私立小学校・国立小学校の受験<br>
+      に関心のある親御さんの疑問・質問に皆さんで<br>
+      答え合うコミュニティ型掲示板です</h6>
+
+      <div class="button-group mb-3 text-center">
+        <%= link_to "質問一覧", posts_path, class: "btn btn-top custom-width" %>
+        <%= link_to "質問する", new_post_path, class: "btn btn-top custom-width" %>
+      </div>
+
+      <div class="col-md-8 custom-search-center">
+        <%= search_form_for @q, html: { style: "margin-bottom: 2px;" }, persist_state: true do |f| %>
+          <div class="form-group">
+            <%= f.label :title_or_body_cont, "質問キーワード検索" %><br>
+            <%= f.search_field :title_or_body_cont, style: "border: 1px solid lightgray; width: 180%;" %>
+          </div>
+          <div class="form-group">
+            <%= f.submit "検索", class: "btn btn-top" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
