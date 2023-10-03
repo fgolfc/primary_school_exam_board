@@ -44,6 +44,9 @@
                     </li>
                 <% else %>
                     <li class="nav-item">
+                        <%= link_to "トップ", homes_top_path, class: "nav-link custom-btn" %>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link custom-btn" href="<%= new_user_registration_path %>">新規登録</a>
                     </li>
                     <li class="nav-item">
